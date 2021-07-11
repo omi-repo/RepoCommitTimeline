@@ -3,6 +3,10 @@ plugins {
     id 'kotlin-android'
 }
 
+def keysPropertiesFile = rootProject.file("keys.properties")
+def keysProperties = new Properties()
+keysProperties.load(new FileInputStream(keysPropertiesFile))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -18,9 +22,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField 'String', "GithubClientId", keysProperties['GithubClientId']
+            buildConfigField 'String', "GithubClientSecret", keysProperties['GithubClientSecret']
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', "GithubClientId", keysProperties['GithubClientId']
+            buildConfigField 'String', "GithubClientSecret", keysProperties['GithubClientSecret']
         }
     }
     compileOptions {
