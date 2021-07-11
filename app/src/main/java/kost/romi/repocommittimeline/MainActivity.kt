@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<TextView>(R.id.build_config_test).text =
-            "${BuildConfig.GithubClientId}\n${BuildConfig.GithubClientSecret}"
+//        findViewById<TextView>(R.id.build_config_test).text =
+//            "${BuildConfig.GithubClientId}\n${BuildConfig.GithubClientSecret}"
     }
 }
