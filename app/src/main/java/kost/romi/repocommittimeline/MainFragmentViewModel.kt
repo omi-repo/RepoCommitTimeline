@@ -1,6 +1,11 @@
 package kost.romi.repocommittimeline
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainFragmentViewModel : ViewModel() {
+@HiltViewModel
+class MainFragmentViewModel @Inject internal constructor(
+) : ViewModel() {
 }

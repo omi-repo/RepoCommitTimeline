@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
 }
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 // Using keys.properties file for ClientId and ClientSecret.
 def keysPropertiesFile = rootProject.file("keys.properties")
@@ -27,6 +28,7 @@ android {
         debug {
             buildConfigField 'String', "GithubClientId", keysProperties['GithubClientId']
             buildConfigField 'String', "GithubClientSecret", keysProperties['GithubClientSecret']
+            buildConfigField 'String', "Token", keysProperties['Token']
         }
         release {
             minifyEnabled true
@@ -34,6 +36,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField 'String', "GithubClientId", keysProperties['GithubClientId']
             buildConfigField 'String', "GithubClientSecret", keysProperties['GithubClientSecret']
+            buildConfigField 'String', "Token", keysProperties['Token']
         }
     }
     compileOptions {
@@ -76,4 +79,12 @@ dependencies {
     // Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:2.4.0-alpha04"
 
+    // Hilt
+    def hilt_version = "2.37"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
