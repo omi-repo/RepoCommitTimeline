@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.databinding.FragmentMainBinding
@@ -27,6 +28,18 @@ class MainFragment : Fragment() {
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.searchButton.setOnClickListener {
+            viewModel.searchThis = binding.searchEditText.text.toString()
+            Toast.makeText(
+                requireContext(),
+                "${binding.searchEditText.text.toString()}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
 }
