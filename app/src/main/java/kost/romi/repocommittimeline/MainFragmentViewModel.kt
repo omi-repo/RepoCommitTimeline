@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 
 @HiltViewModel
 class MainFragmentViewModel @Inject internal constructor(
-    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     var searchThis = ""
