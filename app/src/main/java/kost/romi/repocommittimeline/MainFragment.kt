@@ -7,8 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.viewbinding.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.databinding.FragmentMainBinding
+import org.kohsuke.github.GHUserSearchBuilder
+import org.kohsuke.github.GitHubBuilder
+import timber.log.Timber
 
 /**
  * TODO: use <a href="https://developer.android.com/training/id-auth/authenticate">Authenticate to OAuth2 services</a>, to handle Oauth2.
@@ -33,13 +37,23 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.searchButton.setOnClickListener {
-            viewModel.searchThis = binding.searchEditText.text.toString()
+//            viewModel.searchThis = binding.searchEditText.text.toString()
             Toast.makeText(
                 requireContext(),
                 "${binding.searchEditText.text.toString()}",
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+        viewModel.getSearchResult()
+        viewModel.response?.observe(viewLifecycleOwner, {
+            Timber.i("Response: ${it.total_count}")
+        })
+//        Timber.i("${viewModel.searchResult}")
+
+//        val gitHub = GitHubBuilder().withOAuthToken(BuildConfig.Token).build()
+//        Timber.i("NAME: ${gitHub.getUser("jake").name}")
+//        Timber.i("GITHUB: ${gitHub.myself.repositories.size}")
     }
 
 }
