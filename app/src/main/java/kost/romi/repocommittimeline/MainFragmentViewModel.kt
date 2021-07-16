@@ -13,23 +13,21 @@ import javax.inject.Inject
 class MainFragmentViewModel @Inject constructor(private val gitHubServiceRepository: GitHubServiceRepository) :
     ViewModel() {
 
-    val TAG = "addDEBUG"
+    private val TAG = "addDEBUG"
 
-    val user = "jake"
-    val choosenUser = "JakeWharton"
+    private val token = BuildConfig.Token
+    private val userAgent = "kost.romi.repocommittimeline"
 
-    // https://api.github.com/search/users?q=jake
-//    val searchUsers = "${user}+repos:>42+followers:>1000"  // q parameter
-    val searchUsers = "${user}"  // q parameter
+    private var _userNameEditText = MutableLiveData<String>("")
+    val userNameEditText: LiveData<String>
+        get() = _userNameEditText
 
-    // "repos_url": "https://api.github.com/users/JakeWharton/repos",
-    // https://api.github.com/users/JakeWharton/repos?sort=pushed
-    val searchUserRepos = "users/${choosenUser}/repos?sort=pushed"
+    fun onUserNameChange(userName: String) {
+        _userNameEditText.value = userName
+    }
 
-    // "commits_url": "https://api.github.com/repos/JakeWharton/jakewharton.com/commits{/sha}",
-    val getUserRepoCommits = "repos/JakeWharton/jakewharton.com/commits"
+    private var userName = "${userNameEditText}+repos:>10+followers:>100"
 
-    var searchResult: String = ""
 
     var response: MutableLiveData<SearchGHUserResponse>? = null
 
@@ -38,10 +36,13 @@ class MainFragmentViewModel @Inject constructor(private val gitHubServiceReposit
         Log.i(TAG, "Test")
 
         viewModelScope.launch(Dispatchers.IO) {
-//            repository.searchUser(BuildConfig.Token, "kost.romi.repocommittimeline", "jake")
-//            repository.search(BuildConfig.Token, "kost.romi.repocommittimeline", user)
-//            networkModule.provideGitHubService().searchGHUser(BuildConfig.Token, "kost.romi.repocommittimeline", user)
-            gitHubServiceRepository.searchUser(BuildConfig.Token, "kost.romi.repocommittimeline", user)
+            val response = gitHubServiceRepository.searchUser(
+                BuildConfig.Token,
+                userAgent,
+                userName
+            )
+
+            Log.i(TAG, response.headers().toString())
         }
 
 

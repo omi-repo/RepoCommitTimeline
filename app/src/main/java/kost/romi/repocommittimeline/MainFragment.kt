@@ -1,12 +1,16 @@
 package kost.romi.repocommittimeline
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.ActionBar
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 import timber.log.Timber
@@ -34,13 +38,23 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.searchEditText.setText(viewModel.userNameEditText.value)
+        binding.searchEditText.doOnTextChanged { text, start, before, count ->
+            viewModel.onUserNameChange(text.toString())
+        }
+
         binding.searchButton.setOnClickListener {
-//            viewModel.searchThis = binding.searchEditText.text.toString()
-            Toast.makeText(
-                requireContext(),
-                "${binding.searchEditText.text.toString()}",
-                Toast.LENGTH_SHORT
-            ).show()
+            hideSoftKeyboard(requireView())
+            if (binding.searchEditText.text.isEmpty()) {
+                Snackbar.make(
+                    binding.mainContainer,
+                    "Search bar can't be empty",
+                    Snackbar.LENGTH_LONG
+                )
+                    .show()
+            }
+//            viewModel.getSearchResult()
         }
 
         viewModel.getSearchResult()
@@ -52,6 +66,13 @@ class MainFragment : Fragment() {
 //        val gitHub = GitHubBuilder().withOAuthToken(BuildConfig.Token).build()
 //        Timber.i("NAME: ${gitHub.getUser("jake").name}")
 //        Timber.i("GITHUB: ${gitHub.myself.repositories.size}")
+        setHasOptionsMenu(true)
+    }
+
+    fun hideSoftKeyboard(view: View) {
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }
