@@ -5,6 +5,7 @@ import kost.romi.repocommittimeline.data.GetUserReposResponse
 import kost.romi.repocommittimeline.data.SearchGHUserResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -45,17 +46,20 @@ interface GitHubService {
     companion object {
         private const val BASE_URL = "https://api.github.com/"
 
-        val client = OkHttpClient.Builder()
-            .build()
-
         fun create(): GitHubService {
+            val logger =
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+            val client = OkHttpClient.Builder()
+                .addInterceptor(logger)
+                .build()
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl("https://api.github.com/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(GitHubService::class.java)
         }
     }
+
 
 }

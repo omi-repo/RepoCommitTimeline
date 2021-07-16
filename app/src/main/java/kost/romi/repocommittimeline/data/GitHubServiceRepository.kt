@@ -1,20 +1,17 @@
 package kost.romi.repocommittimeline.data
 
 import kost.romi.repocommittimeline.api.GitHubService
+import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GitHubServiceRepository @Inject constructor(val service: GitHubService) {
-//    suspend fun getSearchResult(
-//        Authorization: String,
-//        UserAgent: String,
-//        query: String
-//    ): SearchGHUserResponse {
-//        return service.searchGHUser(Authorization, UserAgent, query)
-//    }
+class GitHubServiceRepository @Inject constructor(private val service: GitHubService) {
 
-    suspend fun getRateLimit() {
-        return service.getRateLimit()
+    suspend fun searchUser(
+        token: String,
+        userAgent: String,
+        user: String
+    ): Response<SearchGHUserResponse> {
+        return service.searchGHUser(token, userAgent, user)
     }
+
 }

@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.viewbinding.BuildConfig
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.databinding.FragmentMainBinding
-import org.kohsuke.github.GHUserSearchBuilder
-import org.kohsuke.github.GitHubBuilder
 import timber.log.Timber
 
 /**
@@ -19,6 +16,7 @@ import timber.log.Timber
  *
  * @see <a href="https://developer.android.com/training/id-auth/authenticate">Authenticate to OAuth2 services</a>
  */
+
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 

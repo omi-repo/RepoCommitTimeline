@@ -3,25 +3,17 @@ package kost.romi.repocommittimeline
 import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kost.romi.repocommittimeline.api.GitHubService
 import kost.romi.repocommittimeline.data.GitHubServiceRepository
 import kost.romi.repocommittimeline.data.SearchGHUserResponse
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import okhttp3.internal.wait
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class MainFragmentViewModel @Inject internal constructor(
-    private val repository: GitHubServiceRepository
-) : ViewModel() {
+class MainFragmentViewModel @Inject constructor(private val gitHubServiceRepository: GitHubServiceRepository) :
+    ViewModel() {
+
+    val TAG = "addDEBUG"
 
     val user = "jake"
     val choosenUser = "JakeWharton"
@@ -42,11 +34,22 @@ class MainFragmentViewModel @Inject internal constructor(
     var response: MutableLiveData<SearchGHUserResponse>? = null
 
     fun getSearchResult() {
+
+        Log.i(TAG, "Test")
+
+        viewModelScope.launch(Dispatchers.IO) {
+//            repository.searchUser(BuildConfig.Token, "kost.romi.repocommittimeline", "jake")
+//            repository.search(BuildConfig.Token, "kost.romi.repocommittimeline", user)
+//            networkModule.provideGitHubService().searchGHUser(BuildConfig.Token, "kost.romi.repocommittimeline", user)
+            gitHubServiceRepository.searchUser(BuildConfig.Token, "kost.romi.repocommittimeline", user)
+        }
+
+
 //        viewModelScope.launch {
 //            val response = repository.getSearchResult(searchThis)
 //            Timber.i("total_count: ${response.await().total_count}")
 //        }
-
+        /*
         // Interceptor
         val logger =
             HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
@@ -115,6 +118,7 @@ class MainFragmentViewModel @Inject internal constructor(
         }
 
         Timber.i("TEST")
+         */
     }
 
 }
