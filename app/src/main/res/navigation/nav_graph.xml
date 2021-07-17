@@ -9,5 +9,20 @@
         android:id="@+id/mainFragment"
         android:name="kost.romi.repocommittimeline.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_searchResultDialogFragment"
+            app:destination="@id/searchResultDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultDialogFragment"
+        android:name="kost.romi.repocommittimeline.SearchResultDialogFragment"
+        android:label="fragment_search_result_dialog"
+        tools:layout="@layout/fragment_search_result_dialog" >
+        <action
+            android:id="@+id/action_searchResultDialogFragment_to_mainFragment2"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

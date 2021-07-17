@@ -13,7 +13,7 @@ import javax.inject.Inject
 class MainFragmentViewModel @Inject constructor(private val gitHubServiceRepository: GitHubServiceRepository) :
     ViewModel() {
 
-    private val TAG = "addDEBUG"
+    private val TAG = "appDebugViewModel"
 
     private val token = BuildConfig.Token
     private val userAgent = "kost.romi.repocommittimeline"
@@ -42,30 +42,15 @@ class MainFragmentViewModel @Inject constructor(private val gitHubServiceReposit
                 userName
             )
 
-            Log.i(TAG, response.headers().toString())
+            if (response.isSuccessful) {
+                Log.i(TAG, response.headers().toString())
+            } else {
+                
+            }
         }
 
 
-//        viewModelScope.launch {
-//            val response = repository.getSearchResult(searchThis)
-//            Timber.i("total_count: ${response.await().total_count}")
-//        }
         /*
-        // Interceptor
-        val logger =
-            HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logger)
-            .build()
-
-        // Retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create(GitHubService::class.java)
-
         viewModelScope.launch(Dispatchers.IO) {
 
             Timber.i("viewModelScope.launch(Dispatchers.IO) {")
@@ -117,8 +102,6 @@ class MainFragmentViewModel @Inject constructor(private val gitHubServiceReposit
 //            val response: GitHubServiceResponse = deferred.getCompleted()
 //            Timber.i("RESPONSE: ${response.total_count}")
         }
-
-        Timber.i("TEST")
          */
     }
 

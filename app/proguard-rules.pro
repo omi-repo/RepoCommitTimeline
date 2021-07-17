@@ -56,3 +56,8 @@
 
 # Keep generic signature of Call (R8 full mode strips signatures from non-kept items).
 -keep,allowobfuscation,allowshrinking interface retrofit2.Call
+
+# need to prevent your Parcelable, Serializable, and Enum class names from being obfuscated as part of the minification process.
+-keepnames class com.path.to.your.ParcelableArg
+-keepnames class com.path.to.your.SerializableArg
+-keepnames class com.path.to.your.EnumArg
