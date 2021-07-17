@@ -62,15 +62,19 @@ class MainFragment : Fragment() {
                     .setAnchorView(binding.bottomAppBar)
                     .show()
             } else {
-                findNavController().navigate(MainFragmentDirections.actionMainFragmentToSearchResultDialogFragment())
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToSearchResultDialogFragment(
+                        binding.searchEditText.text.toString()
+                    )
+                )
             }
 //            viewModel.getSearchResult()
         }
 
-        viewModel.getSearchResult()
-        viewModel.response?.observe(viewLifecycleOwner, {
-            Timber.i("Response: ${it.total_count}")
-        })
+//        viewModel.getSearchResult()
+//        viewModel.response?.observe(viewLifecycleOwner, {
+//            Timber.i("Response: ${it.total_count}")
+//        })
 
         setHasOptionsMenu(true)
     }

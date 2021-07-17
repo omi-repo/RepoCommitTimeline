@@ -19,8 +19,7 @@ class MainFragmentViewModel @Inject constructor(private val gitHubServiceReposit
     private val userAgent = "kost.romi.repocommittimeline"
 
     private var _userNameEditText = MutableLiveData<String>("")
-    val userNameEditText: LiveData<String>
-        get() = _userNameEditText
+    val userNameEditText: LiveData<String> get() = _userNameEditText
 
     fun onUserNameChange(userName: String) {
         _userNameEditText.value = userName
@@ -37,7 +36,7 @@ class MainFragmentViewModel @Inject constructor(private val gitHubServiceReposit
 
         viewModelScope.launch(Dispatchers.IO) {
             val response = gitHubServiceRepository.searchUser(
-                BuildConfig.Token,
+                token,
                 userAgent,
                 userName
             )
@@ -45,7 +44,7 @@ class MainFragmentViewModel @Inject constructor(private val gitHubServiceReposit
             if (response.isSuccessful) {
                 Log.i(TAG, response.headers().toString())
             } else {
-                
+
             }
         }
 
