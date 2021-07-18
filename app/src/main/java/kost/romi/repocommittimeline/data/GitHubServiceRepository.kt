@@ -14,4 +14,13 @@ class GitHubServiceRepository @Inject constructor(private val service: GitHubSer
         return service.searchGHUser(token, userAgent, user)
     }
 
+    suspend fun getUserRepo(
+        token: String,
+        userAgent: String,
+        userRepoUrl: String,
+        sort: String
+    ): Response<List<UserRepoResponse>> {
+        return service.getUserRepos(token, userAgent, userRepoUrl, sort)
+    }
+
 }

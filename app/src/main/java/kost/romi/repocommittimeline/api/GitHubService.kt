@@ -3,6 +3,7 @@ package kost.romi.repocommittimeline.api
 import kost.romi.repocommittimeline.data.GetUserRepoCommitsResponse
 import kost.romi.repocommittimeline.data.GetUserReposResponse
 import kost.romi.repocommittimeline.data.SearchUserResponse
+import kost.romi.repocommittimeline.data.UserRepoResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -23,13 +24,13 @@ interface GitHubService {
         @Query("q", encoded = true) q: String
     ): Response<SearchUserResponse>
 
-    @GET("{user_id}")
+    @GET("{user_repo_url}")
     suspend fun getUserRepos(
         @Header("Authorization") Authorization: String,
         @Header("User-Agent") UserAgent: String,
-        @Path("user_id", encoded = true) userId: String,
+        @Path("user_repo_url", encoded = true) user_repo_url: String,
         @Query("sort", encoded = true) sort: String
-    ): List<GetUserReposResponse>
+    ): Response<List<UserRepoResponse>>
 
     @GET("{user_repo_commits}")
     suspend fun getUserRepoCommits(

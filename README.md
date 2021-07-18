@@ -6,3 +6,4 @@ If you want to compile and run this project, don't forget to create a file (call
 
     GithubClientId="YOUR_ID"
     GithubClientSecret="YOUR_SECRET"
+    Token="YOUR_PRIVATE_AUTHENTICATED_TOKEN"

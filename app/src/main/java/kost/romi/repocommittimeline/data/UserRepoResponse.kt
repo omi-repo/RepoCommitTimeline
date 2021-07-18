@@ -16,79 +16,79 @@ data class UserRepoResponse(
     @field:SerializedName("owner")
     val owner: Owner,
     @field:SerializedName("html_url")
-    val html_url: URL,
+    val html_url: String,
     @field:SerializedName("description")
     val description: String,
     @field:SerializedName("fork")
     val fork: Boolean,
     @field:SerializedName("url")
-    val url: URL,
+    val url: String,
     @field:SerializedName("forks_url")
-    val forks_url: URL,
+    val forks_url: String,
     @field:SerializedName("keys_url")
-    val keys_url: URL,
+    val keys_url: String,
     @field:SerializedName("collaborators_url")
-    val collaborators_url: URL,
+    val collaborators_url: String,
     @field:SerializedName("teams_url")
-    val teams_url: URL,
+    val teams_url: String,
     @field:SerializedName("hooks_url")
-    val hooks_url: URL,
+    val hooks_url: String,
     @field:SerializedName("issue_events_url")
-    val issue_events_url: URL,
+    val issue_events_url: String,
     @field:SerializedName("events_url")
-    val events_url: URL,
+    val events_url: String,
     @field:SerializedName("assignees_url")
-    val assignees_url: URL,
+    val assignees_url: String,
     @field:SerializedName("branches_url")
-    val branches_url: URL,
+    val branches_url: String,
     @field:SerializedName("tags_url")
-    val tags_url: URL,
+    val tags_url: String,
     @field:SerializedName("blobs_url")
-    val blobs_url: URL,
+    val blobs_url: String,
     @field:SerializedName("git_tags_url")
-    val git_tags_url: URL,
+    val git_tags_url: String,
     @field:SerializedName("trees_url")
-    val trees_url: URL,
+    val trees_url: String,
     @field:SerializedName("languages_url")
-    val languages_url: URL,
+    val languages_url: String,
     @field:SerializedName("stargazers_url")
-    val stargazers_url: URL,
+    val stargazers_url: String,
     @field:SerializedName("contributors_url")
-    val contributors_url: URL,
+    val contributors_url: String,
     @field:SerializedName("subscribers_url")
-    val subscribers_url: URL,
+    val subscribers_url: String,
     @field:SerializedName("subscription_url")
-    val subscription_url: URL,
+    val subscription_url: String,
     @field:SerializedName("commits_url")
-    val commits_url: URL,
+    val commits_url: String,
     @field:SerializedName("git_commits_url")
-    val git_commits_url: URL,
+    val git_commits_url: String,
     @field:SerializedName("comments_url")
-    val comments_url: URL,
+    val comments_url: String,
     @field:SerializedName("issue_comment_url")
-    val issue_comment_url: URL,
+    val issue_comment_url: String,
     @field:SerializedName("contents_url")
-    val contents_url: URL,
+    val contents_url: String,
     @field:SerializedName("merges_url")
-    val merges_url: URL,
+    val merges_url: String,
     @field:SerializedName("archive_url")
-    val archive_url: URL,
+    val archive_url: String,
     @field:SerializedName("downloads_url")
-    val downloads_url: URL,
+    val downloads_url: String,
     @field:SerializedName("issues_url")
-    val issues_url: URL,
+    val issues_url: String,
     @field:SerializedName("pulls_url")
-    val pulls_url: URL,
+    val pulls_url: String,
     @field:SerializedName("milestones_url")
-    val milestones_url: URL,
+    val milestones_url: String,
     @field:SerializedName("notifications_url")
-    val notifications_url: URL,
+    val notifications_url: String,
     @field:SerializedName("labels_url")
-    val labels_url: URL,
+    val labels_url: String,
     @field:SerializedName("releases_url")
-    val releases_url: URL,
+    val releases_url: String,
     @field:SerializedName("deployments_url")
-    val deployments_url: URL,
+    val deployments_url: String,
     @field:SerializedName("created_at")
     val created_at: Date,
     @field:SerializedName("updated_at")
@@ -96,13 +96,15 @@ data class UserRepoResponse(
     @field:SerializedName("pushed_at")
     val pushed_at: Date,
     @field:SerializedName("git_url")
-    val git_url: URL,
+    val git_url: String,
     @field:SerializedName("clone_url")
-    val clone_url: URL,
+    val clone_url: String,
+    @field:SerializedName("ssh_url")
+    val ssh_url: String,
     @field:SerializedName("svn_url")
-    val svn_url: URL,
+    val svn_url: String,
     @field:SerializedName("homepage")
-    val homepage: URL,
+    val homepage: String,
     @field:SerializedName("size")
     val size: Int,
     @field:SerializedName("stargazers_count")
@@ -110,7 +112,7 @@ data class UserRepoResponse(
     @field:SerializedName("watchers_count")
     val watchers_count: Int,
     @field:SerializedName("language")
-    val language: Int
+    val language: String
 )
 
 data class Owner(
@@ -119,31 +121,31 @@ data class Owner(
     @field:SerializedName("inode_id")
     val node_id: String,
     @field:SerializedName("avatar_url")
-    val avatar_url: URL,
+    val avatar_url: String,
     @field:SerializedName("url")
-    val url: URL,
+    val url: String,
     @field:SerializedName("html_url")
-    val html_url: URL,
+    val html_url: String,
     @field:SerializedName("followers_url")
-    val followers_url: URL,
+    val followers_url: String,
     @field:SerializedName("following_url")
-    val following_url: URL,
+    val following_url: String,
     @field:SerializedName("gists_url")
-    val gists_url: URL,
+    val gists_url: String,
     @field:SerializedName("starred_url")
-    val starred_url: URL,
+    val starred_url: String,
     @field:SerializedName("subscriptions_url")
-    val subscriptions_url: URL,
+    val subscriptions_url: String,
     @field:SerializedName("organizations_url")
-    val organizations_url: URL,
+    val organizations_url: String,
     @field:SerializedName("repos_url")
-    val repos_url: URL,
+    val repos_url: String,
     @field:SerializedName("events_url")
-    val events_url: URL,
+    val events_url: String,
     @field:SerializedName("received_events_url")
-    val received_events_url: URL,
+    val received_events_url: String,
     @field:SerializedName("type")
-    val type: URL,
+    val type: String,
     @field:SerializedName("site_admin")
     val language: String,
     @field:SerializedName("has_issues")
@@ -159,7 +161,7 @@ data class Owner(
     @field:SerializedName("forks_count")
     val forks_count: Int,
     @field:SerializedName("mirror_url")
-    val mirror_url: URL,
+    val mirror_url: String,
     @field:SerializedName("archived")
     val archived: Boolean,
     @field:SerializedName("disabled")
