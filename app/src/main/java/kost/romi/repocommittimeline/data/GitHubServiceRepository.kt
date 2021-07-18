@@ -10,7 +10,7 @@ class GitHubServiceRepository @Inject constructor(private val service: GitHubSer
         token: String,
         userAgent: String,
         user: String
-    ): Response<SearchGHUserResponse> {
+    ): Response<SearchUserResponse> {
         return service.searchGHUser(token, userAgent, user)
     }
 

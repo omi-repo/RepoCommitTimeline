@@ -5,7 +5,7 @@ import java.net.URI
 import java.net.URL
 
 
-data class SearchGHUserResponse(
+data class SearchUserResponse(
     @field:SerializedName("total_count")
     val total_count: Int,
     @field:SerializedName("incomplete_results")
@@ -18,7 +18,7 @@ data class Items(
     @field:SerializedName("login")
     val login: String,
     @field:SerializedName("id")
-    val id: Int,
+    val id: Long,
     @field:SerializedName("avatar_url")
     val avatar_url: URL,
     @field:SerializedName("gravatar_id")

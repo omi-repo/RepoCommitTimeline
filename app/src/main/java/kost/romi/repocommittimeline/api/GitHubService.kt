@@ -2,11 +2,9 @@ package kost.romi.repocommittimeline.api
 
 import kost.romi.repocommittimeline.data.GetUserRepoCommitsResponse
 import kost.romi.repocommittimeline.data.GetUserReposResponse
-import kost.romi.repocommittimeline.data.SearchGHUserResponse
-import kotlinx.coroutines.Deferred
+import kost.romi.repocommittimeline.data.SearchUserResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -23,7 +21,7 @@ interface GitHubService {
         @Header("Authorization") Authorization: String,
         @Header("User-Agent") UserAgent: String,
         @Query("q", encoded = true) q: String
-    ): Response<SearchGHUserResponse>
+    ): Response<SearchUserResponse>
 
     @GET("{user_id}")
     suspend fun getUserRepos(

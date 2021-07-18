@@ -1,4 +1,4 @@
-package kost.romi.repocommittimeline
+package kost.romi.repocommittimeline.ui.main
 
 import android.content.Context
 import android.os.Bundle
@@ -8,16 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.databinding.FragmentMainBinding
-import timber.log.Timber
 
 /**
  * TODO: use <a href="https://developer.android.com/training/id-auth/authenticate">Authenticate to OAuth2 services</a>, to handle Oauth2. [CHECK]
@@ -45,11 +41,13 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "override fun onViewCreated(view: View, savedInstanceState: Bundle?)")
 
+        //
         binding.searchEditText.setText(viewModel.userNameEditText.value)
         binding.searchEditText.doOnTextChanged { text, start, before, count ->
             viewModel.onUserNameChange(text.toString())
         }
 
+        // Handle Search Button.
         binding.searchButton.setOnClickListener {
             hideSoftKeyboard(requireView())
             if (binding.searchEditText.text.isEmpty()) {

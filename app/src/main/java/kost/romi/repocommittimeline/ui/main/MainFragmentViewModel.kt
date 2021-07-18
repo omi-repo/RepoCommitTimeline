@@ -1,10 +1,11 @@
-package kost.romi.repocommittimeline
+package kost.romi.repocommittimeline.ui.main
 
 import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kost.romi.repocommittimeline.BuildConfig
 import kost.romi.repocommittimeline.data.GitHubServiceRepository
-import kost.romi.repocommittimeline.data.SearchGHUserResponse
+import kost.romi.repocommittimeline.data.SearchUserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,7 +29,7 @@ class MainFragmentViewModel @Inject constructor(private val gitHubServiceReposit
     private var userName = "${userNameEditText}+repos:>10+followers:>100"
 
 
-    var response: MutableLiveData<SearchGHUserResponse>? = null
+    var response: MutableLiveData<SearchUserResponse>? = null
 
     fun getSearchResult() {
 

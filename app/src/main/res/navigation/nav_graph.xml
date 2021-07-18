@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="kost.romi.repocommittimeline.MainFragment"
+        android:name="kost.romi.repocommittimeline.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/searchResultDialogFragment"
-        android:name="kost.romi.repocommittimeline.SearchResultDialogFragment"
+        android:name="kost.romi.repocommittimeline.ui.searchresult.SearchResultDialogFragment"
         android:label="fragment_search_result_dialog"
         tools:layout="@layout/fragment_search_result_dialog" >
         <action
@@ -26,6 +26,29 @@
             app:popUpToInclusive="false" />
         <argument
             android:name="userName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchResultDialogFragment_to_userRepoFragment"
+            app:destination="@id/userRepoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userRepoFragment"
+        android:name="kost.romi.repocommittimeline.ui.userrepo.UserRepoFragment"
+        android:label="fragment_user_repo"
+        tools:layout="@layout/fragment_user_repo" >
+        <action
+            android:id="@+id/action_userRepoFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="userRepoUrl"
+            app:argType="string" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
+        <argument
+            android:name="avatarUrl"
             app:argType="string" />
     </fragment>
 </navigation>

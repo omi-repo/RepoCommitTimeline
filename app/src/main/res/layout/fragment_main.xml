@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="setTimerViewModel"
-            type="kost.romi.repocommittimeline.MainFragmentViewModel" />
+            name="mainFragmentViewModel"
+            type="kost.romi.repocommittimeline.ui.main.MainFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,10 +77,10 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/your_title"
+                        android:id="@+id/appBar_title_TextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         android:text="@string/app_name"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                         android:textColor="#fff" />

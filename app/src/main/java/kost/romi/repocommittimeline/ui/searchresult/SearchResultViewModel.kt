@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kost.romi.repocommittimeline.data.GitHubServiceRepository
-import kost.romi.repocommittimeline.data.SearchGHUserResponse
+import kost.romi.repocommittimeline.data.Items
+import kost.romi.repocommittimeline.data.SearchUserResponse
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +26,8 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
     private var _searchResponse = MutableLiveData(SearchResponse.NONE)
     val searchResponse: LiveData<SearchResponse> get() = _searchResponse
 
+    var listUsersResponse: SearchUserResponse? = null
+
     fun getSearchResult(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = gitHubServiceRepository.searchUser(
@@ -31,14 +35,14 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
                 userAgent,
                 userName
             )
-
+            delay(1000)
             if (response.isSuccessful) {
                 Log.i(TAG, response.headers().toString())
                 _searchResponse.postValue(SearchResponse.SUCCESS)
-                val users: SearchGHUserResponse? = response.body()
-                Log.i(TAG, "Total count : ${users?.total_count.toString()}")
-                Log.i(TAG, "Item login : ${users?.items?.get(1)?.login.toString()}")
-                Log.i(TAG, "Item login : ${users?.items?.get(1)?.type.toString()}")
+                listUsersResponse = response.body()
+                Log.i(TAG, "Total count : ${listUsersResponse?.total_count.toString()}")
+                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.login.toString()}")
+                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.type.toString()}")
             } else {
                 _searchResponse.postValue(SearchResponse.FAIL)
             }
