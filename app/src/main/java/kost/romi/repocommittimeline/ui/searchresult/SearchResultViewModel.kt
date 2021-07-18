@@ -41,8 +41,8 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
                 _searchResponse.postValue(SearchResponse.SUCCESS)
                 listUsersResponse = response.body()
                 Log.i(TAG, "Total count : ${listUsersResponse?.total_count.toString()}")
-                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.login.toString()}")
-                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.type.toString()}")
+//                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.login.toString()}")
+//                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.type.toString()}")
             } else {
                 _searchResponse.postValue(SearchResponse.FAIL)
             }
