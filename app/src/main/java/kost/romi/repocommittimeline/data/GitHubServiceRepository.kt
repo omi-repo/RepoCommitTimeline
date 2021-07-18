@@ -18,9 +18,10 @@ class GitHubServiceRepository @Inject constructor(private val service: GitHubSer
         token: String,
         userAgent: String,
         userRepoUrl: String,
+        type: String,
         sort: String
     ): Response<List<UserRepoResponse>> {
-        return service.getUserRepos(token, userAgent, userRepoUrl, sort)
+        return service.getUserRepos(token, userAgent, userRepoUrl, type, sort)
     }
 
 }

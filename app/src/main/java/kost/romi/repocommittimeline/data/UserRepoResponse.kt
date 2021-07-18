@@ -9,6 +9,8 @@ data class UserRepoResponse(
     val id: Long,
     @field:SerializedName("node_id")
     val node_id: String,
+    @field:SerializedName("name")
+    val name: String,
     @field:SerializedName("full_name")
     val full_name: String,
     @field:SerializedName("private")

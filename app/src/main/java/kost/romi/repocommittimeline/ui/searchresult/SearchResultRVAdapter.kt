@@ -1,6 +1,5 @@
 package kost.romi.repocommittimeline.ui.searchresult
 
-import android.content.Context
 import android.graphics.*
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,8 @@ import kost.romi.repocommittimeline.data.Items
 
 
 class SearchResultRVAdapter :
-    ListAdapter<Items, SearchResultRVAdapter.SearchResultViewHolder>(TimerHistoryDiffCallback) {
+    ListAdapter<Items, SearchResultRVAdapter.SearchResultViewHolder>(SearchResultDiffCallback) {
+
     class SearchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val avatar: ImageView = itemView.findViewById(R.id.imageView)
         private val userName: TextView = itemView.findViewById(R.id.textView2)
@@ -46,9 +46,10 @@ class SearchResultRVAdapter :
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
+
 }
 
-object TimerHistoryDiffCallback : DiffUtil.ItemCallback<Items>() {
+object SearchResultDiffCallback : DiffUtil.ItemCallback<Items>() {
     override fun areItemsTheSame(oldItem: Items, newItem: Items): Boolean {
         return oldItem == newItem
     }

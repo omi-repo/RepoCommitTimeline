@@ -22,6 +22,15 @@
             android:layout_height="match_parent"
             android:text="@string/hello_blank_fragment" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/user_repo_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"

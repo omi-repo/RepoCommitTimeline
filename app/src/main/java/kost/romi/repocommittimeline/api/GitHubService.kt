@@ -29,6 +29,7 @@ interface GitHubService {
         @Header("Authorization") Authorization: String,
         @Header("User-Agent") UserAgent: String,
         @Path("user_repo_url", encoded = true) user_repo_url: String,
+        @Query("type", encoded = true) type: String,
         @Query("sort", encoded = true) sort: String
     ): Response<List<UserRepoResponse>>
 
