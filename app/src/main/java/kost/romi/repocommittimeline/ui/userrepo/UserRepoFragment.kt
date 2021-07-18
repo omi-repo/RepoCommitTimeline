@@ -69,7 +69,7 @@ class UserRepoFragment : Fragment() {
 
         Picasso.get().load(avatarUrl).transform(CircleTransform())
             .into(binding.appBarAvatarImageView)
-        binding.appBarTitleTextView.text = userName
+        binding.appBarTitleTextView.text = "Repo - ${userName}"
 
         Toast.makeText(
             requireContext(),

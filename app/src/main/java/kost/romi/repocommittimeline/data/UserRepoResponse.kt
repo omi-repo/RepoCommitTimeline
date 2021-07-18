@@ -114,7 +114,37 @@ data class UserRepoResponse(
     @field:SerializedName("watchers_count")
     val watchers_count: Int,
     @field:SerializedName("language")
-    val language: String
+    val language: String,
+    @field:SerializedName("has_issues")
+    val has_issues: Boolean,
+    @field:SerializedName("has_projects")
+    val has_projects: Boolean,
+    @field:SerializedName("has_downloads")
+    val has_downloads: Boolean,
+    @field:SerializedName("has_wiki")
+    val has_wiki: Boolean,
+    @field:SerializedName("has_pages")
+    val has_pages: Boolean,
+    @field:SerializedName("forks_count")
+    val forks_count: Int,
+    @field:SerializedName("mirror_url")
+    val mirror_url: String,
+    @field:SerializedName("archived")
+    val archived: Boolean,
+    @field:SerializedName("disabled")
+    val disabled: Boolean,
+    @field:SerializedName("open_issues_count")
+    val open_issues_count: Int,
+    @field:SerializedName("license")
+    val license: License,
+    @field:SerializedName("forks")
+    val forks: Int,
+    @field:SerializedName("open_issues")
+    val open_issues: Int,
+    @field:SerializedName("watchers")
+    val watchers: Int,
+    @field:SerializedName("default_branch")
+    val default_branch: String
 )
 
 data class Owner(
@@ -149,44 +179,14 @@ data class Owner(
     @field:SerializedName("type")
     val type: String,
     @field:SerializedName("site_admin")
-    val language: String,
-    @field:SerializedName("has_issues")
-    val has_issues: Boolean,
-    @field:SerializedName("has_projects")
-    val has_projects: Boolean,
-    @field:SerializedName("has_downloads")
-    val has_downloads: Boolean,
-    @field:SerializedName("has_wiki")
-    val has_wiki: Boolean,
-    @field:SerializedName("has_pages")
-    val has_pages: Boolean,
-    @field:SerializedName("forks_count")
-    val forks_count: Int,
-    @field:SerializedName("mirror_url")
-    val mirror_url: String,
-    @field:SerializedName("archived")
-    val archived: Boolean,
-    @field:SerializedName("disabled")
-    val disabled: Boolean,
-    @field:SerializedName("open_issues_count")
-    val open_issues_count: Int,
-    @field:SerializedName("license")
-    val license: License,
-    @field:SerializedName("forks")
-    val forks: Int,
-    @field:SerializedName("open_issues")
-    val open_issues: Int,
-    @field:SerializedName("watchers")
-    val watchers: Int,
-    @field:SerializedName("default_branch")
-    val default_branch: String
+    val language: String
 )
 
 data class License(
     @field:SerializedName("key")
     val key: String,
     @field:SerializedName("name")
-    val keyname: String,
+    val name: String,
     @field:SerializedName("spdx_id")
     val spdx_id: String,
     @field:SerializedName("url")

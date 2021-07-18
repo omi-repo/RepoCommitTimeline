@@ -2,8 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_repo_CardView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="4dp"
     app:cardBackgroundColor="#AEAEAE"
     app:cardCornerRadius="16dp">
@@ -12,57 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Owner"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/user_avatar_ImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8"
-                tools:srcCompat="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/user_name_TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Name:"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_avatar_ImageView" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
+        <!--<View
             android:id="@+id/view"
             android:layout_width="1dp"
             android:layout_height="0dp"
@@ -72,7 +23,76 @@
             android:background="#26000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!--<View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="#33000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="#33000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="Owner"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/user_avatar_ImageView"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/user_name_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="Name:"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_avatar_ImageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -80,11 +100,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -138,7 +158,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/created_at_TextView" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,186 +170,158 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/updated_at_TextView">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@+id/updated_at_TextView">
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <ImageView
+                        android:id="@+id/stargazers_ImageView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_star" />
+
+                    <TextView
+                        android:id="@+id/stargazers_TextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Stargazers:"
+                        app:layout_constraintBottom_toBottomOf="@+id/stargazers_ImageView"
+                        app:layout_constraintStart_toEndOf="@+id/stargazers_ImageView"
+                        app:layout_constraintTop_toTopOf="@+id/stargazers_ImageView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <ImageView
-                            android:id="@+id/stargazers_ImageView"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:srcCompat="@drawable/ic_star" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:id="@+id/stargazers_TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Stargazers:"
-                            app:layout_constraintBottom_toBottomOf="@+id/stargazers_ImageView"
-                            app:layout_constraintStart_toEndOf="@+id/stargazers_ImageView"
-                            app:layout_constraintTop_toTopOf="@+id/stargazers_ImageView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/language_ImageView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/circular_background_shape" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/language_TextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Language:"
+                        app:layout_constraintBottom_toBottomOf="@+id/language_ImageView"
+                        app:layout_constraintStart_toEndOf="@+id/language_ImageView"
+                        app:layout_constraintTop_toTopOf="@+id/language_ImageView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <ImageView
-                            android:id="@+id/language_ImageView"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/circular_background_shape" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
-                        <TextView
-                            android:id="@+id/language_TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Language:"
-                            app:layout_constraintBottom_toBottomOf="@+id/language_ImageView"
-                            app:layout_constraintStart_toEndOf="@+id/language_ImageView"
-                            app:layout_constraintTop_toTopOf="@+id/language_ImageView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/fork_ImageView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_fork" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/fork_TextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Forks:"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/fork_ImageView"
+                        app:layout_constraintTop_toTopOf="@+id/fork_ImageView" />
 
-                        <ImageView
-                            android:id="@+id/archived_ImageView"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:tint="#000000"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_baseline_archive_24" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/archived_TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Archived:"
-                            app:layout_constraintBottom_toBottomOf="@+id/archived_ImageView"
-                            app:layout_constraintStart_toEndOf="@+id/archived_ImageView"
-                            app:layout_constraintTop_toTopOf="@+id/archived_ImageView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout5"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
-                </LinearLayout>
+                    <ImageView
+                        android:id="@+id/open_issues_ImageView"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_issues" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/open_issues_TextView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Issues:"
+                        app:layout_constraintBottom_toBottomOf="@+id/open_issues_ImageView"
+                        app:layout_constraintStart_toEndOf="@+id/open_issues_ImageView"
+                        app:layout_constraintTop_toTopOf="@+id/open_issues_ImageView" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <ImageView
-                            android:id="@+id/fork_ImageView"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@drawable/circular_background_shape"
-                            tools:srcCompat="@drawable/ic_fork" />
 
-                        <TextView
-                            android:id="@+id/fork_TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Forks:"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/fork_ImageView"
-                            app:layout_constraintTop_toTopOf="@+id/fork_ImageView" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/has_wiki_ImageView"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_wiki" />
-
-                        <TextView
-                            android:id="@+id/has_wiki_TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Wiki:"
-                            app:layout_constraintBottom_toBottomOf="@+id/has_wiki_ImageView"
-                            app:layout_constraintStart_toEndOf="@+id/has_wiki_ImageView"
-                            app:layout_constraintTop_toTopOf="@+id/has_wiki_ImageView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/has_wiki_ImageView"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_issues" />
-
-                        <TextView
-                            android:id="@+id/open_issues_TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Issues:"
-                            app:layout_constraintBottom_toBottomOf="@+id/has_wiki_ImageView"
-                            app:layout_constraintStart_toEndOf="@+id/has_wiki_ImageView"
-                            app:layout_constraintTop_toTopOf="@+id/has_wiki_ImageView" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/default_branch_ImageView"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                app:srcCompat="@drawable/ic_default_branch" />
 
             <TextView
                 android:id="@+id/default_branch_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:text="Default Branch:"
+                app:layout_constraintBottom_toBottomOf="@+id/default_branch_ImageView"
+                app:layout_constraintStart_toEndOf="@+id/default_branch_ImageView"
+                app:layout_constraintTop_toTopOf="@+id/default_branch_ImageView" />
+
+            <ImageView
+                android:id="@+id/license_ImageView"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                app:layout_constraintTop_toBottomOf="@+id/default_branch_ImageView"
+                app:srcCompat="@drawable/ic_license" />
 
             <TextView
                 android:id="@+id/license_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:text="License:"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/default_branch_TextView" />
+                app:layout_constraintBottom_toBottomOf="@+id/license_ImageView"
+                app:layout_constraintStart_toEndOf="@+id/license_ImageView"
+                app:layout_constraintTop_toTopOf="@+id/license_ImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
