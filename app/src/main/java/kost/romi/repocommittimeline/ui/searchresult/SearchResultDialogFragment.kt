@@ -53,15 +53,14 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
 
         // If HTTP request response success or fail.
         viewModel.searchResponse.observe(viewLifecycleOwner, {
+            binding.searchUserProgressBar.visibility = View.GONE
             if (it == SearchResponse.SUCCESS) {
                 Log.i(TAG, "$it == success")
-                binding.searchUserProgressBar.visibility = View.GONE
                 binding.searchUserRecyclerView.visibility = View.VISIBLE
                 adapter.submitList(viewModel.listUsersResponse?.items)
             }
             if (it == SearchResponse.FAIL) {
                 Log.i(TAG, "$it == fail")
-                binding.searchUserProgressBar.visibility = View.GONE
                 binding.searchUserFailResponseTextView.visibility = View.VISIBLE
             }
         })

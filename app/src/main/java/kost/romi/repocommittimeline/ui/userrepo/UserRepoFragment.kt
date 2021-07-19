@@ -65,6 +65,7 @@ class UserRepoFragment : Fragment() {
             }
         })
 
+        // App bar
         Picasso.get().load(avatarUrl).transform(CircleTransform())
             .into(binding.appBarAvatarImageView)
         binding.appBarTitleTextView.text = "Repo - ${userName}"

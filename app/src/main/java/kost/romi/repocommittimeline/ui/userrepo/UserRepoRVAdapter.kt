@@ -58,7 +58,8 @@ class UserRepoRVAdapter :
                 itemView.findNavController().navigate(
                     UserRepoFragmentDirections.actionUserRepoFragmentToRepoCommitFragment(
                         item?.commits_url.toString(),
-                        item?.owner?.login.toString()
+                        item?.owner?.login.toString(),
+                        item?.owner?.avatar_url.toString()
                     )
                 )
             }

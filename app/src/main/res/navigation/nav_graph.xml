@@ -65,5 +65,8 @@
         <argument
             android:name="userName"
             app:argType="string" />
+        <argument
+            android:name="avatarUrl"
+            app:argType="string" />
     </fragment>
 </navigation>
