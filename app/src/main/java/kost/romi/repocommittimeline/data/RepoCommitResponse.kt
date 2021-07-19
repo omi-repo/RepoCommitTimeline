@@ -12,11 +12,11 @@ data class RepoCommitResponse(
     @field:SerializedName("commit")
     val commit: Commit,
     @field:SerializedName("url")
-    val url: URL,
+    val url: String,
     @field:SerializedName("html_url")
-    val html_url: URL,
+    val html_url: String,
     @field:SerializedName("comments_url")
-    val comments_url: URL,
+    val comments_url: String,
     @field:SerializedName("author")
     val author: AuthorLong,
     @field:SerializedName("committer")
@@ -29,13 +29,13 @@ data class committerLong(
     @field:SerializedName("id")
     val id: Long,
     @field:SerializedName("avatar_url")
-    val avatar_url: URL,
+    val avatar_url: String,
     @field:SerializedName("gravatar_id")
-    val gravatar_id: URL,
+    val gravatar_id: String,
     @field:SerializedName("url")
-    val url: URL,
+    val url: String,
     @field:SerializedName("html_url")
-    val html_url: URL,
+    val html_url: String,
     @field:SerializedName("type")
     val type: String,
     @field:SerializedName("site_admin")
@@ -50,11 +50,11 @@ data class AuthorLong(
     @field:SerializedName("node_id")
     val node_id: String,
     @field:SerializedName("avatar_url")
-    val avatar_url: URL,
+    val avatar_url: String,
     @field:SerializedName("gravatar_id")
-    val gravatar_id: URL,
+    val gravatar_id: String,
     @field:SerializedName("html_url")
-    val html_url: URL,
+    val html_url: String,
     @field:SerializedName("type")
     val type: String,
     @field:SerializedName("site_admin")
@@ -71,7 +71,7 @@ data class Commit(
     @field:SerializedName("tree")
     val tree: Tree,
     @field:SerializedName("url")
-    val url: URL,
+    val url: String,
     @field:SerializedName("comment_count")
     val comment_count: Int,
     @field:SerializedName("verification")
@@ -100,7 +100,7 @@ data class Tree(
     @field:SerializedName("sha")
     val sha: String,
     @field:SerializedName("url")
-    val url: URL
+    val url: String
 )
 
 data class Verification(

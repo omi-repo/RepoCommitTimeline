@@ -9,14 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import kost.romi.repocommittimeline.R
 import kost.romi.repocommittimeline.databinding.FragmentRepoCommitBinding
-import kost.romi.repocommittimeline.databinding.FragmentUserRepoBinding
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
-import kost.romi.repocommittimeline.ui.userrepo.GetUserRepoResponse
-import kost.romi.repocommittimeline.ui.userrepo.UserRepoRVAdapter
 
 /**
  * TODO: finish adding RepoCommitAdapter.
@@ -37,12 +34,6 @@ class RepoCommitFragment : Fragment() {
         return binding.root
     }
 
-    // RecyclerView
-    val adapter = UserRepoRVAdapter()
-    val recyclerView: RecyclerView = binding.repoCommitRecyclerView
-    recyclerView.layoutManager = LinearLayoutManager(requireContext())
-    recyclerView.adapter = adapter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -54,22 +45,29 @@ class RepoCommitFragment : Fragment() {
         // App bar
         Picasso.get().load(avatarUrl).transform(CircleTransform())
             .into(binding.appBarAvatarImageView)
-        binding.appBarTitleTextView.text = "Commit timeline - ${userName}"
+        binding.appBarTitleTextView.text = "Commits  - ${userName}"
 
         viewModel.repoCommitUrl = repoCommitUrl
         viewModel.userName = userName
 
         viewModel.getRepoCommit()
 
+        // RecyclerView
+        val adapter = RepoCommitAdapter()
+        val recyclerView: RecyclerView = binding.repoCommitRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
         viewModel.getRepoCommitResponse.observe(viewLifecycleOwner, {
-            binding.repoCommitProgressBar.visibility = View.GONE
             if (it == GetRepoCommitResponse.SUCCESS) {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.SUCCESS")
+                binding.repoCommitProgressBar.visibility = View.INVISIBLE
                 binding.repoCommitRecyclerView.visibility = View.VISIBLE
-                adapter.submitList(viewModel.listUsersResponse)
+                adapter.submitList(viewModel.repoCommitResponse)
             }
             if (it == GetRepoCommitResponse.FAIL) {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.FAIL")
+                binding.repoCommitProgressBar.visibility = View.INVISIBLE
                 binding.searchUserFailResponseTextView.visibility = View.VISIBLE
             }
         })

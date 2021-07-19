@@ -41,9 +41,10 @@ class UserRepoFragment : Fragment() {
         val args: UserRepoFragmentArgs by navArgs()
         val userRepoUrl = args.userRepoUrl
         viewModel.userRepoUrl = userRepoUrl
-        viewModel.getUserRepo()
         val userName = args.userName
         val avatarUrl = args.avatarUrl
+
+        viewModel.getUserRepo()
 
         // RecyclerView
         val adapter = UserRepoRVAdapter()
@@ -54,13 +55,13 @@ class UserRepoFragment : Fragment() {
         viewModel.getUserRepoResponse.observe(viewLifecycleOwner, {
             if (it == GetUserRepoResponse.SUCCESS) {
                 Log.i(TAG, "onViewCreated: it == GetUserRepoResponse.SUCCESS")
-                binding.searchUserProgressBar.visibility = View.GONE
+                binding.searchUserProgressBar.visibility = View.INVISIBLE
                 binding.userRepoRecyclerView.visibility = View.VISIBLE
                 adapter.submitList(viewModel.listUsersResponse)
             }
             if (it == GetUserRepoResponse.FAIL) {
                 Log.i(TAG, "onViewCreated: it == GetUserRepoResponse.FAIL")
-                binding.searchUserProgressBar.visibility = View.GONE
+                binding.searchUserProgressBar.visibility = View.INVISIBLE
                 binding.searchUserFailResponseTextView.visibility = View.VISIBLE
             }
         })

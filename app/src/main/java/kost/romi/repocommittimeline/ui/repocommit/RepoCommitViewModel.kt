@@ -32,7 +32,8 @@ class RepoCommitViewModel @Inject constructor(private val gitHubServiceRepositor
     var repoCommitResponse: List<RepoCommitResponse>? = null
 
     fun getRepoCommit() {
-        var userRepoPath = repoCommitUrl.replace("https://api.github.com/", "")
+        var userRepoPath =
+            repoCommitUrl.replace("https://api.github.com/", "").replace("{/sha}", "")
         Log.i(TAG, "getSearchResult: ${userRepoPath}")
         viewModelScope.launch(Dispatchers.IO) {
             val response = gitHubServiceRepository.getRepoCommit(
@@ -45,8 +46,8 @@ class RepoCommitViewModel @Inject constructor(private val gitHubServiceRepositor
                 Log.i(TAG, response.headers().toString())
                 _getRepoCommitResponse.postValue(GetRepoCommitResponse.SUCCESS)
                 repoCommitResponse = response.body()
-                Log.i(TAG, "owner : ${repoCommitResponse?.get(0)?.owner?.login}")
-                Log.i(TAG, "repo name : ${repoCommitResponse?.get(0)?.full_name}")
+                Log.i(TAG, "owner : ${repoCommitResponse?.get(0)?.author?.login}")
+                Log.i(TAG, "committer name : ${repoCommitResponse?.get(0)?.committer?.login}")
             } else {
                 _getRepoCommitResponse.postValue(GetRepoCommitResponse.FAIL)
             }
