@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +20,6 @@ import kost.romi.repocommittimeline.R
 import kost.romi.repocommittimeline.colorMap
 import kost.romi.repocommittimeline.data.UserRepoResponse
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 class UserRepoRVAdapter :
@@ -57,7 +55,12 @@ class UserRepoRVAdapter :
         fun bind(item: UserRepoResponse?) {
 
             userRepoCardView.setOnClickListener {
-                
+                itemView.findNavController().navigate(
+                    UserRepoFragmentDirections.actionUserRepoFragmentToRepoCommitFragment(
+                        item?.commits_url.toString(),
+                        item?.owner?.login.toString()
+                    )
+                )
             }
 
             // user avatar

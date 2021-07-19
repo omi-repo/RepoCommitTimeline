@@ -24,4 +24,12 @@ class GitHubServiceRepository @Inject constructor(private val service: GitHubSer
         return service.getUserRepos(token, userAgent, userRepoUrl, type, sort)
     }
 
+    suspend fun getRepoCommit(
+        token: String,
+        userAgent: String,
+        userRepoUrl: String
+    ): Response<List<RepoCommitResponse>>{
+        return service.getRepoCommits(token, userAgent, userRepoUrl)
+    }
+
 }

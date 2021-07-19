@@ -35,7 +35,7 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
 
     var listUsersResponse: List<UserRepoResponse>? = null
 
-    fun getSearchResult() {
+    fun getUserRepo() {
         var userRepoPath = userRepoUrl.replace("https://api.github.com/", "")
         Log.i(TAG, "getSearchResult: ${userRepoPath}")
         viewModelScope.launch(Dispatchers.IO) {

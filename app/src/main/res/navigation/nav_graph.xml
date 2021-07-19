@@ -50,5 +50,20 @@
         <argument
             android:name="avatarUrl"
             app:argType="string" />
+        <action
+            android:id="@+id/action_userRepoFragment_to_repoCommitFragment"
+            app:destination="@id/repoCommitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/repoCommitFragment"
+        android:name="kost.romi.repocommittimeline.ui.repocommit.RepoCommitFragment"
+        android:label="fragment_repo_commit"
+        tools:layout="@layout/fragment_repo_commit" >
+        <argument
+            android:name="repoCommitUrl"
+            app:argType="string" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
     </fragment>
 </navigation>

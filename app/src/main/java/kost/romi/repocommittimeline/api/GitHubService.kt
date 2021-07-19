@@ -1,7 +1,6 @@
 package kost.romi.repocommittimeline.api
 
-import kost.romi.repocommittimeline.data.GetUserRepoCommitsResponse
-import kost.romi.repocommittimeline.data.GetUserReposResponse
+import kost.romi.repocommittimeline.data.RepoCommitResponse
 import kost.romi.repocommittimeline.data.SearchUserResponse
 import kost.romi.repocommittimeline.data.UserRepoResponse
 import okhttp3.OkHttpClient
@@ -34,11 +33,11 @@ interface GitHubService {
     ): Response<List<UserRepoResponse>>
 
     @GET("{user_repo_commits}")
-    suspend fun getUserRepoCommits(
+    suspend fun getRepoCommits(
         @Header("Authorization") Authorization: String,
         @Header("User-Agent") UserAgent: String,
         @Path("user_repo_commits", encoded = true) userRepoCommits: String
-    ): List<GetUserRepoCommitsResponse>
+    ): Response<List<RepoCommitResponse>>
 
     @GET("rate_limit")
     suspend fun getRateLimit()
@@ -53,7 +52,7 @@ interface GitHubService {
                 .addInterceptor(logger)
                 .build()
             return Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
+                .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

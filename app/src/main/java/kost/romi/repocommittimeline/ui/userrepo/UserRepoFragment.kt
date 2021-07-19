@@ -6,20 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import kost.romi.repocommittimeline.R
-import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 import kost.romi.repocommittimeline.databinding.FragmentUserRepoBinding
-import kost.romi.repocommittimeline.ui.main.MainFragmentViewModel
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
-import kost.romi.repocommittimeline.ui.searchresult.SearchResultRVAdapter
 
 /**
  *
@@ -47,7 +41,7 @@ class UserRepoFragment : Fragment() {
         val args: UserRepoFragmentArgs by navArgs()
         val userRepoUrl = args.userRepoUrl
         viewModel.userRepoUrl = userRepoUrl
-        viewModel.getSearchResult()
+        viewModel.getUserRepo()
         val userName = args.userName
         val avatarUrl = args.avatarUrl
 
@@ -60,10 +54,14 @@ class UserRepoFragment : Fragment() {
         viewModel.getUserRepoResponse.observe(viewLifecycleOwner, {
             if (it == GetUserRepoResponse.SUCCESS) {
                 Log.i(TAG, "onViewCreated: it == GetUserRepoResponse.SUCCESS")
+                binding.searchUserProgressBar.visibility = View.GONE
+                binding.userRepoRecyclerView.visibility = View.VISIBLE
                 adapter.submitList(viewModel.listUsersResponse)
             }
             if (it == GetUserRepoResponse.FAIL) {
                 Log.i(TAG, "onViewCreated: it == GetUserRepoResponse.FAIL")
+                binding.searchUserProgressBar.visibility = View.GONE
+                binding.searchUserFailResponseTextView.visibility = View.VISIBLE
             }
         })
 
@@ -71,11 +69,11 @@ class UserRepoFragment : Fragment() {
             .into(binding.appBarAvatarImageView)
         binding.appBarTitleTextView.text = "Repo - ${userName}"
 
-        Toast.makeText(
-            requireContext(),
-            "This is the link to User Repo: ${userRepoUrl}",
-            Toast.LENGTH_SHORT
-        ).show()
+//        Toast.makeText(
+//            requireContext(),
+//            "This is the link to User Repo: ${userRepoUrl}",
+//            Toast.LENGTH_SHORT
+//        ).show()
 
     }
 
