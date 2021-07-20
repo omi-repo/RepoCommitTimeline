@@ -16,19 +16,16 @@
         android:background="@color/cardview_dark_background"
         android:backgroundTint="@color/white">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:text="@string/hello_blank_fragment" />-->
 
 
         <ProgressBar
             android:id="@+id/search_user_progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
+            style="@style/progress_bar_default"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +39,7 @@
             app:layout_constraintBottom_toTopOf="@+id/cancel_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -59,8 +56,7 @@
 
         <Button
             android:id="@+id/cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/button_default"
             android:text="@string/cancel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

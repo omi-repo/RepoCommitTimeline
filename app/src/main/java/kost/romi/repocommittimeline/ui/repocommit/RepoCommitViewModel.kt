@@ -43,12 +43,15 @@ class RepoCommitViewModel @Inject constructor(private val gitHubServiceRepositor
             )
             delay(1000)
             if (response.isSuccessful) {
-                Log.i(TAG, response.headers().toString())
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                Log.i(TAG, "response.message(): ${response.message()}")
                 _getRepoCommitResponse.postValue(GetRepoCommitResponse.SUCCESS)
                 repoCommitResponse = response.body()
                 Log.i(TAG, "owner : ${repoCommitResponse?.get(0)?.author?.login}")
                 Log.i(TAG, "committer name : ${repoCommitResponse?.get(0)?.committer?.login}")
             } else {
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                Log.i(TAG, "response.message(): ${response.message()}")
                 _getRepoCommitResponse.postValue(GetRepoCommitResponse.FAIL)
             }
         }

@@ -37,13 +37,20 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
             )
             delay(1000)
             if (response.isSuccessful) {
-                Log.i(TAG, response.headers().toString())
+                //                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                for (map in response.headers().toMultimap()) {
+                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
+                }
+                Log.i(TAG, "response.message(): ${response.message()}")
                 _searchResponse.postValue(SearchResponse.SUCCESS)
                 listUsersResponse = response.body()
                 Log.i(TAG, "Total count : ${listUsersResponse?.total_count.toString()}")
-//                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.login.toString()}")
-//                Log.i(TAG, "Item login : ${listUsersResponse?.items?.get(1)?.type.toString()}")
             } else {
+                //                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                for (map in response.headers().toMultimap()) {
+                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
+                }
+                Log.i(TAG, "response.message(): ${response.message()}")
                 _searchResponse.postValue(SearchResponse.FAIL)
             }
         }

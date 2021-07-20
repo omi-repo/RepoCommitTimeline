@@ -66,13 +66,7 @@ class MainFragment : Fragment() {
                     )
                 )
             }
-//            viewModel.getSearchResult()
         }
-
-//        viewModel.getSearchResult()
-//        viewModel.response?.observe(viewLifecycleOwner, {
-//            Timber.i("Response: ${it.total_count}")
-//        })
 
         setHasOptionsMenu(true)
     }

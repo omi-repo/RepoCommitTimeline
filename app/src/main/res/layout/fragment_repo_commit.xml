@@ -14,20 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/hello_blank_fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         <ProgressBar
             android:id="@+id/repo_commit_ProgressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
+            style="@style/progress_bar_default"
             app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,14 +63,9 @@
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomAppBar"
-                style="@style/Widget.MaterialComponents.BottomAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/teal_700"
-                android:backgroundTint="#1976D2"
+                style="@style/bottom_app_bar_default"
                 app:menu="@menu/bottom_nav_menu"
-                app:title="test"
-                app:titleTextColor="#074DFF">
+                app:title="">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -91,13 +83,11 @@
 
                     <TextView
                         android:id="@+id/appBar_title_TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/app_bar_text_view_default"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="8dp"
                         android:text="@string/app_name"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:textColor="#fff"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/appBar_avatar_ImageView"
                         app:layout_constraintTop_toTopOf="parent" />

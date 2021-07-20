@@ -48,12 +48,21 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
             )
             delay(1000)
             if (response.isSuccessful) {
-                Log.i(TAG, response.headers().toString())
+//                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                for (map in response.headers().toMultimap()) {
+                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
+                }
+                Log.i(TAG, "response.message(): ${response.message()}")
                 _getUserRepoResponse.postValue(GetUserRepoResponse.SUCCESS)
                 listUsersResponse = response.body()
                 Log.i(TAG, "owner : ${listUsersResponse?.get(0)?.owner?.login}")
                 Log.i(TAG, "repo name : ${listUsersResponse?.get(0)?.full_name}")
             } else {
+                //                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                for (map in response.headers().toMultimap()) {
+                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
+                }
+                Log.i(TAG, "response.message(): ${response.message()}")
                 _getUserRepoResponse.postValue(GetUserRepoResponse.FAIL)
             }
         }

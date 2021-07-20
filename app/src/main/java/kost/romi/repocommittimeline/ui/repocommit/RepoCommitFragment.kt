@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kost.romi.repocommittimeline.animation.Stagger
 import kost.romi.repocommittimeline.databinding.FragmentRepoCommitBinding
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
 
@@ -57,6 +59,8 @@ class RepoCommitFragment : Fragment() {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.SUCCESS")
                 binding.repoCommitProgressBar.visibility = View.INVISIBLE
                 binding.repoCommitRecyclerView.visibility = View.VISIBLE
+                // This is the transition for the stagger effect.
+                val stagger = Stagger()
                 // RecyclerView
                 val adapter = viewModel.repoCommitResponse?.let { it1 ->
                     if (it1.size == null) {
@@ -69,6 +73,8 @@ class RepoCommitFragment : Fragment() {
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 recyclerView.recycledViewPool.setMaxRecycledViews(0, 0)
                 recyclerView.adapter = adapter
+                // Delay the stagger effect until the list is updated.
+                TransitionManager.beginDelayedTransition(recyclerView, stagger)
                 adapter?.submitList(viewModel.repoCommitResponse)
                 recyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
 

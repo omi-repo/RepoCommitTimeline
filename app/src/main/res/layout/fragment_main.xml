@@ -22,12 +22,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hello_blank_fragment"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />-->
 
             <EditText
                 android:id="@+id/search_EditText"
@@ -36,6 +36,7 @@
                 android:hint="Search GitHub User"
                 android:inputType=""
                 android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,10 +44,8 @@
 
             <Button
                 android:id="@+id/search_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#1976D2"
-                android:text="Search"
+                style="@style/button_default"
+                android:text="@string/search"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search_EditText" />
@@ -64,14 +63,9 @@
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomAppBar"
-                style="@style/Widget.MaterialComponents.BottomAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/teal_700"
-                android:backgroundTint="#1976D2"
+                style="@style/bottom_app_bar_default"
                 app:menu="@menu/bottom_nav_menu"
-                app:title="test"
-                app:titleTextColor="#074DFF">
+                app:title="">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -79,12 +73,10 @@
 
                     <TextView
                         android:id="@+id/appBar_title_TextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/app_bar_text_view_default"
                         android:layout_alignParentStart="true"
                         android:text="@string/app_name"
-                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:textColor="#fff" />
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
                 </RelativeLayout>
             </com.google.android.material.bottomappbar.BottomAppBar>

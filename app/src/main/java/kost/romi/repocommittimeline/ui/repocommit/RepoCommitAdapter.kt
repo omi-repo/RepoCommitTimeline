@@ -72,7 +72,8 @@ class RepoCommitAdapter(private val dataSetSize: Int) :
 
             // If last item, timelineLineView2 is View.INVISIBLE
             if (position == dataSetSize - 1) {
-                timelineLineView2.visibility = View.INVISIBLE
+//                timelineLineView2.visibility = View.INVISIBLE
+                timelineLineView2.setBackgroundResource(R.drawable.timeline_grey_to_transparent_shape)
             }
         }
 

@@ -3,6 +3,8 @@ package kost.romi.repocommittimeline
 class Constants {
 }
 
+const val LARGE_EXPAND_DURATION = 1000L
+
 val colorMap = mutableMapOf<String, String>(
     "ABAP" to "#E8274B",
     "ActionScript" to "#882B0F",

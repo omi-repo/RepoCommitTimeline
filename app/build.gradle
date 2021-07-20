@@ -124,4 +124,7 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Colorful, for theming.
+//    implementation 'com.github.garretyoder:Colorful:2.3.4'
 }

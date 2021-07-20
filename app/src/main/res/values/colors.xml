@@ -1,10 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <!--    <color name="purple_200">#FFBB86FC</color>-->
+    <!--    <color name="purple_500">#FF6200EE</color>-->
+    <!--    <color name="purple_700">#FF3700B3</color>-->
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--  Primary  -->
+    <color name="blue_900">#0d46a1</color>
+    <color name="blue_800">#1564c0</color>
+    <!--  default is blue_700  -->
+    <color name="blue_700">#1976d2</color>
+    <color name="blue_600">#1e87e5</color>
+    <color name="blue_500">#2095f3</color>
+    <color name="blue_400">#42a5f5</color>
+    <color name="blue_300">#64b5f6</color>
+    <color name="blue_200">#90caf9</color>
+    <color name="blue_100">#bbdefb</color>
+    <color name="blue_50">#e3f2fd</color>
+
+    <!--  Complementary  -->
+    <color name="brown_900">#bf5213</color>
+    <color name="brown_800">#cb6816</color>
+    <!--  default is brown_700  -->
+    <color name="brown_700">#d27619</color>
+    <color name="brown_600">#d8831d</color>
+    <color name="brown_500">#dc8e20</color>
+    <color name="brown_400">#e19d34</color>
+    <color name="brown_300">#e5ad54</color>
+    <color name="brown_200">#ecc483</color>
+    <color name="brown_100">#f4dbb3</color>
+    <color name="brown_50">#faf1e1</color>
+
+    <!--  Analogous  -->
+    <color name="green_900">#006159</color>
+    <color name="green_800">#008484</color>
+    <color name="green_700">#00999b</color>
+    <color name="green_600">#00aeb4</color>
+    <color name="green_500">#00bec6</color>
+    <color name="green_400">#00c8cb</color>
+    <!--  default is green_300  -->
+    <color name="green_300">#19d2d2</color>
+    <color name="green_200">#71e0dd</color>
+    <color name="green_100">#abece9</color>
+    <color name="green_50">#ddf8f6</color>
+    <color name="deep_blue_900">#0006ca</color>
+    <!--  default is deep_blue_800  -->
+    <color name="deep_blue_800">#1919d2</color>
+    <color name="deep_blue_700">#381fd8</color>
+    <color name="deep_blue_600">#4e28e0</color>
+    <color name="deep_blue_400">#794feb</color>
+    <color name="deep_blue_300">#9470ef</color>
+    <color name="deep_blue_200">#b49bf3</color>
+    <color name="deep_blue_100">#d2c3f7</color>
+    <color name="deep_blue_50">#eee6fc</color>
+
+    <!--  Triadic  -->
+    <color name="purple_900">#3400b5</color>
+    <color name="purple_800">#4e00be</color>
+    <color name="purple_700">#5d03c4</color>
+    <color name="purple_600">#6b13cc</color>
+    <!--  default is purple_500  -->
+    <color name="purple_500">#7619d2</color>
+    <color name="purple_400">#8c46da</color>
+    <color name="purple_300">#a16ae1</color>
+    <color name="purple_200">#bc97e9</color>
+    <color name="purple_100">#d7c1f1</color>
+    <color name="purple_50">#f0e6fa</color>
+    <color name="pink_900">#951367</color>
+    <color name="pink_800">#bc1771</color>
+    <color name="pink_700">#d21976</color>
+    <!--  default is pink_600  -->
+    <color name="pink_600">#e91a7c</color>
+    <color name="pink_500">#fc1b80</color>
+    <color name="pink_300">#fa68ab</color>
+    <color name="pink_50">#fde5f1</color>
 </resources>
