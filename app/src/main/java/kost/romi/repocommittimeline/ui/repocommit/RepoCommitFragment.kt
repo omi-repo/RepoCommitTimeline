@@ -52,18 +52,27 @@ class RepoCommitFragment : Fragment() {
 
         viewModel.getRepoCommit()
 
-        // RecyclerView
-        val adapter = RepoCommitAdapter()
-        val recyclerView: RecyclerView = binding.repoCommitRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = adapter
-
         viewModel.getRepoCommitResponse.observe(viewLifecycleOwner, {
             if (it == GetRepoCommitResponse.SUCCESS) {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.SUCCESS")
                 binding.repoCommitProgressBar.visibility = View.INVISIBLE
                 binding.repoCommitRecyclerView.visibility = View.VISIBLE
-                adapter.submitList(viewModel.repoCommitResponse)
+                // RecyclerView
+                val adapter = viewModel.repoCommitResponse?.let { it1 ->
+                    if (it1.size == null) {
+                        RepoCommitAdapter(0)
+                    } else {
+                        RepoCommitAdapter(it1.size)
+                    }
+                }
+                val recyclerView: RecyclerView = binding.repoCommitRecyclerView
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.recycledViewPool.setMaxRecycledViews(0, 0)
+                recyclerView.adapter = adapter
+                adapter?.submitList(viewModel.repoCommitResponse)
+                recyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+
+                }
             }
             if (it == GetRepoCommitResponse.FAIL) {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.FAIL")
