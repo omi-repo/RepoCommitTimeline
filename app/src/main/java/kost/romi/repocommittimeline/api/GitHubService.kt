@@ -20,7 +20,8 @@ interface GitHubService {
     suspend fun searchGHUser(
         @Header("Authorization") Authorization: String,
         @Header("User-Agent") UserAgent: String,
-        @Query("q", encoded = true) q: String
+        @Query("q", encoded = true) q: String,
+        @Query("page", encoded = true) page: Int
     ): Response<SearchUserResponse>
 
     @GET("{user_repo_url}")
@@ -29,14 +30,16 @@ interface GitHubService {
         @Header("User-Agent") UserAgent: String,
         @Path("user_repo_url", encoded = true) user_repo_url: String,
         @Query("type", encoded = true) type: String,
-        @Query("sort", encoded = true) sort: String
+        @Query("sort", encoded = true) sort: String,
+        @Query("page", encoded = true) page: Int
     ): Response<List<UserRepoResponse>>
 
     @GET("{user_repo_commits}")
     suspend fun getRepoCommits(
         @Header("Authorization") Authorization: String,
         @Header("User-Agent") UserAgent: String,
-        @Path("user_repo_commits", encoded = true) userRepoCommits: String
+        @Path("user_repo_commits", encoded = true) userRepoCommits: String,
+        @Query("page", encoded = true) page: Int
     ): Response<List<RepoCommitResponse>>
 
     @GET("rate_limit")

@@ -22,18 +22,23 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
 
     private val token = BuildConfig.Token
     private val userAgent = "kost.romi.repocommittimeline"
+    var page = 1
 
     private var _searchResponse = MutableLiveData(SearchResponse.NONE)
     val searchResponse: LiveData<SearchResponse> get() = _searchResponse
 
     var listUsersResponse: SearchUserResponse? = null
 
+    private var _headerLink = MutableLiveData<String>("")
+    val headerLink: LiveData<String> get() = _headerLink
+
     fun getSearchResult(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = gitHubServiceRepository.searchUser(
                 token,
                 userAgent,
-                userName
+                userName,
+                page
             )
             delay(1000)
             if (response.isSuccessful) {
@@ -41,17 +46,74 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
                 for (map in response.headers().toMultimap()) {
                     Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
                 }
-                Log.i(TAG, "response.message(): ${response.message()}")
+
                 _searchResponse.postValue(SearchResponse.SUCCESS)
                 listUsersResponse = response.body()
-                Log.i(TAG, "Total count : ${listUsersResponse?.total_count.toString()}")
+
+                // handle header for different page request.
+                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
             } else {
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                Log.i(TAG, "response.message(): ${response.message()}")
+                _searchResponse.postValue(SearchResponse.FAIL)
+            }
+        }
+    }
+
+    fun getNextSearchResult(userName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = gitHubServiceRepository.searchUser(
+                token,
+                userAgent,
+                userName,
+                page
+            )
+            delay(1000)
+            if (response.isSuccessful) {
                 //                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
                 for (map in response.headers().toMultimap()) {
                     Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
                 }
+
+                _searchResponse.postValue(SearchResponse.SUCCESS)
+                listUsersResponse = response.body()
+
+                // handle header for different page request.
+                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
+            } else {
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
                 Log.i(TAG, "response.message(): ${response.message()}")
                 _searchResponse.postValue(SearchResponse.FAIL)
+                page--
+            }
+        }
+    }
+
+    fun getPrevSearchResult(userName: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = gitHubServiceRepository.searchUser(
+                token,
+                userAgent,
+                userName,
+                page
+            )
+            delay(1000)
+            if (response.isSuccessful) {
+                //                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                for (map in response.headers().toMultimap()) {
+                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
+                }
+
+                _searchResponse.postValue(SearchResponse.SUCCESS)
+                listUsersResponse = response.body()
+
+                // handle header for different page request.
+                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
+            } else {
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                Log.i(TAG, "response.message(): ${response.message()}")
+                _searchResponse.postValue(SearchResponse.FAIL)
+                page++
             }
         }
     }

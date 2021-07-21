@@ -27,8 +27,12 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
     private val type =
         "public"  // all, public, private, forks, sources, member, internal (Default: all)
     private val sortBy = "updated"  // created, updated, pushed, full_name (Default: created)
+    var page = 1
 
     var userRepoUrl = ""
+
+    private var _headerLink = MutableLiveData<String>("")
+    val headerLink: LiveData<String> get() = _headerLink
 
     private val _getUserRepoResponse = MutableLiveData(GetUserRepoResponse.NONE)
     val getUserRepoResponse: LiveData<GetUserRepoResponse> get() = _getUserRepoResponse
@@ -44,7 +48,8 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
                 userAgent,
                 userRepoPath,
                 type,
-                sortBy
+                sortBy,
+                page
             )
             delay(1000)
             if (response.isSuccessful) {
@@ -52,18 +57,82 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
                 for (map in response.headers().toMultimap()) {
                     Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
                 }
-                Log.i(TAG, "response.message(): ${response.message()}")
+
                 _getUserRepoResponse.postValue(GetUserRepoResponse.SUCCESS)
                 listUsersResponse = response.body()
-                Log.i(TAG, "owner : ${listUsersResponse?.get(0)?.owner?.login}")
-                Log.i(TAG, "repo name : ${listUsersResponse?.get(0)?.full_name}")
+
+                // handle header for different page request.
+                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
             } else {
-                //                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                Log.i(TAG, "response.message(): ${response.message()}")
+                _getUserRepoResponse.postValue(GetUserRepoResponse.FAIL)
+            }
+        }
+    }
+
+    fun getNextUserRepo() {
+        var userRepoPath = userRepoUrl.replace("https://api.github.com/", "")
+        Log.i(TAG, "getSearchResult: ${userRepoPath}")
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = gitHubServiceRepository.getUserRepo(
+                token,
+                userAgent,
+                userRepoPath,
+                type,
+                sortBy,
+                page
+            )
+            delay(1000)
+            if (response.isSuccessful) {
+//                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
                 for (map in response.headers().toMultimap()) {
                     Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
                 }
+
+                _getUserRepoResponse.postValue(GetUserRepoResponse.SUCCESS)
+                listUsersResponse = response.body()
+
+                // handle header for different page request.
+                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
+            } else {
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
                 Log.i(TAG, "response.message(): ${response.message()}")
                 _getUserRepoResponse.postValue(GetUserRepoResponse.FAIL)
+                page--
+            }
+        }
+    }
+
+    fun getPervUserRepo() {
+        var userRepoPath = userRepoUrl.replace("https://api.github.com/", "")
+        Log.i(TAG, "getSearchResult: ${userRepoPath}")
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = gitHubServiceRepository.getUserRepo(
+                token,
+                userAgent,
+                userRepoPath,
+                type,
+                sortBy,
+                page
+            )
+            delay(1000)
+            if (response.isSuccessful) {
+//                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                for (map in response.headers().toMultimap()) {
+                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
+                }
+
+                _getUserRepoResponse.postValue(GetUserRepoResponse.SUCCESS)
+                listUsersResponse = response.body()
+
+                // handle header for different page request.
+                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
+            } else {
+                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
+                Log.i(TAG, "response.message(): ${response.message()}")
+                _getUserRepoResponse.postValue(GetUserRepoResponse.FAIL)
+                page++
             }
         }
     }

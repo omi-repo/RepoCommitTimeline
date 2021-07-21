@@ -61,4 +61,15 @@
         <item name="android:visibility">visible</item>
     </style>
 
+    <style name="page_selection_FAB" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clickable">true</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:visibility">visible</item>
+        <item name="fabSize">mini</item>
+        <item name="android:backgroundTint">@color/blue_500</item>
+        <item name="tint">@color/white</item>
+    </style>
+
 </resources>

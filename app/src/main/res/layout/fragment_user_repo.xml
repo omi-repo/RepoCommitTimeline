@@ -52,6 +52,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/next_page_floatingActionButton"
+            style="@style/page_selection_FAB"
+            app:layout_constraintBottom_toBottomOf="@+id/user_repo_RecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_chevron_right_24" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/prev_page_floatingActionButton"
+            style="@style/page_selection_FAB"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/user_repo_RecyclerView"
+            app:layout_constraintEnd_toStartOf="@+id/next_page_floatingActionButton"
+            app:srcCompat="@drawable/ic_baseline_chevron_left_24" />
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"

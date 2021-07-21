@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.SharedElementCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -37,8 +38,6 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        prepareTransitions()
-//        postponeEnterTransition()
         binding = FragmentSearchResultDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,6 +48,9 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
         // args
         val args: SearchResultDialogFragmentArgs by navArgs()
         val userName = args.userName
+
+        val recyclerView: RecyclerView = binding.searchUserRecyclerView
+        val adapter = SearchResultRVAdapter()
 
         viewModel.getSearchResult(userName)
 
@@ -61,8 +63,6 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
                 // This is the transition for the stagger effect.
                 val stagger = Stagger()
                 // RecyclerView
-                val adapter = SearchResultRVAdapter()
-                val recyclerView: RecyclerView = binding.searchUserRecyclerView
                 recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
                 recyclerView.adapter = adapter
                 // Delay the stagger effect until the list is updated.
@@ -76,34 +76,42 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
             }
         })
 
+        // handle header for different page request.
+        viewModel.headerLink.observe(viewLifecycleOwner, {
+            if (it.contains("next")) {
+                Log.i(TAG, "NEXT: $it")
+                binding.nextPageFloatingActionButton.visibility = View.VISIBLE
+            } else {
+                binding.nextPageFloatingActionButton.visibility = View.INVISIBLE
+            }
+            if (it.contains("prev")) {
+                Log.i(TAG, "PREV: $it")
+                binding.prevPageFloatingActionButton.visibility = View.VISIBLE
+            } else {
+                binding.prevPageFloatingActionButton.visibility = View.INVISIBLE
+            }
+        })
+
+        binding.nextPageFloatingActionButton.setOnClickListener {
+            viewModel.page++
+            adapter.submitList(null)
+            binding.searchUserRecyclerView.visibility = View.INVISIBLE
+            binding.searchUserProgressBar.visibility = View.VISIBLE
+            viewModel.getNextSearchResult(userName)
+        }
+
+        binding.prevPageFloatingActionButton.setOnClickListener {
+            viewModel.page--
+            adapter.submitList(null)
+            binding.searchUserRecyclerView.visibility = View.INVISIBLE
+            binding.searchUserProgressBar.visibility = View.VISIBLE
+            viewModel.getPrevSearchResult(userName)
+        }
+
         binding.cancelButton.setOnClickListener {
 //            dismiss()
             findNavController().navigate(SearchResultDialogFragmentDirections.actionSearchResultDialogFragmentToMainFragment2())
         }
     }
-
-//    private fun prepareTransitions() {
-//        exitTransition = TransitionInflater.from(context)
-//            .inflateTransition(R.transition.grid_exit_transition)
-//
-//        // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
-//
-//        // A similar mapping is set at the ImagePagerFragment with a setEnterSharedElementCallback.
-//        setExitSharedElementCallback(
-//            object : SharedElementCallback() {
-//                override fun onMapSharedElements(
-//                    names: List<String>,
-//                    sharedElements: MutableMap<String, View>
-//                ) {
-//                    // Locate the ViewHolder for the clicked position.
-//                    val selectedViewHolder: RecyclerView.ViewHolder = recyclerView
-//                        .findViewHolderForAdapterPosition(MainActivity.currentPosition) ?: return
-//
-//                    // Map the first shared element name to the child ImageView.
-//                    sharedElements[names[0]] =
-//                        selectedViewHolder.itemView.findViewById(R.id.card_image)
-//                }
-//            })
-//    }
 
 }

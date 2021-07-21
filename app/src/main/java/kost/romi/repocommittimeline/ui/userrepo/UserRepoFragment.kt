@@ -58,14 +58,19 @@ class UserRepoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // args
         val args: UserRepoFragmentArgs by navArgs()
         val userRepoUrl = args.userRepoUrl
         viewModel.userRepoUrl = userRepoUrl
         val userName = args.userName
         val avatarUrl = args.avatarUrl
 
+        val adapter = UserRepoRVAdapter()
+        val recyclerView: RecyclerView = binding.userRepoRecyclerView
+
         viewModel.getUserRepo()
 
+        // If HTTP request response success or fail.
         viewModel.getUserRepoResponse.observe(viewLifecycleOwner, {
             if (it == GetUserRepoResponse.SUCCESS) {
                 Log.i(TAG, "onViewCreated: it == GetUserRepoResponse.SUCCESS")
@@ -74,8 +79,6 @@ class UserRepoFragment : Fragment() {
                 // This is the transition for the stagger effect.
                 val stagger = Stagger()
                 // RecyclerView
-                val adapter = UserRepoRVAdapter()
-                val recyclerView: RecyclerView = binding.userRepoRecyclerView
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 recyclerView.adapter = adapter
                 // Delay the stagger effect until the list is updated.
@@ -89,16 +92,42 @@ class UserRepoFragment : Fragment() {
             }
         })
 
+        // handle header for different page request.
+        viewModel.headerLink.observe(viewLifecycleOwner, {
+            if (it.contains("next")) {
+                Log.i(TAG, "NEXT: $it")
+                binding.nextPageFloatingActionButton.visibility = View.VISIBLE
+            } else {
+                binding.nextPageFloatingActionButton.visibility = View.INVISIBLE
+            }
+            if (it.contains("prev")) {
+                Log.i(TAG, "PREV: $it")
+                binding.prevPageFloatingActionButton.visibility = View.VISIBLE
+            } else {
+                binding.prevPageFloatingActionButton.visibility = View.INVISIBLE
+            }
+        })
+
+        binding.nextPageFloatingActionButton.setOnClickListener {
+            viewModel.page++
+            adapter.submitList(null)
+            binding.userRepoRecyclerView.visibility = View.INVISIBLE
+            binding.searchUserProgressBar.visibility = View.VISIBLE
+            viewModel.getNextUserRepo()
+        }
+
+        binding.prevPageFloatingActionButton.setOnClickListener {
+            viewModel.page--
+            adapter.submitList(null)
+            binding.userRepoRecyclerView.visibility = View.INVISIBLE
+            binding.searchUserProgressBar.visibility = View.VISIBLE
+            viewModel.getPervUserRepo()
+        }
+
         // App bar
         Picasso.get().load(avatarUrl).transform(CircleTransform())
             .into(binding.appBarAvatarImageView)
         binding.appBarTitleTextView.text = "Repo - ${userName}"
-
-//        Toast.makeText(
-//            requireContext(),
-//            "This is the link to User Repo: ${userRepoUrl}",
-//            Toast.LENGTH_SHORT
-//        ).show()
 
     }
 

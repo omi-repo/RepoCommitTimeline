@@ -9,9 +9,10 @@ class GitHubServiceRepository @Inject constructor(private val service: GitHubSer
     suspend fun searchUser(
         token: String,
         userAgent: String,
-        user: String
+        user: String,
+        page: Int
     ): Response<SearchUserResponse> {
-        return service.searchGHUser(token, userAgent, user)
+        return service.searchGHUser(token, userAgent, user, page)
     }
 
     suspend fun getUserRepo(
@@ -19,17 +20,19 @@ class GitHubServiceRepository @Inject constructor(private val service: GitHubSer
         userAgent: String,
         userRepoUrl: String,
         type: String,
-        sort: String
+        sort: String,
+        page: Int
     ): Response<List<UserRepoResponse>> {
-        return service.getUserRepos(token, userAgent, userRepoUrl, type, sort)
+        return service.getUserRepos(token, userAgent, userRepoUrl, type, sort, page)
     }
 
     suspend fun getRepoCommit(
         token: String,
         userAgent: String,
-        userRepoUrl: String
-    ): Response<List<RepoCommitResponse>>{
-        return service.getRepoCommits(token, userAgent, userRepoUrl)
+        userRepoUrl: String,
+        page: Int
+    ): Response<List<RepoCommitResponse>> {
+        return service.getRepoCommits(token, userAgent, userRepoUrl, page)
     }
 
 }

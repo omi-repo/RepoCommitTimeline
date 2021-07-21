@@ -39,21 +39,21 @@ class RepoCommitFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // args
         val args: RepoCommitFragmentArgs by navArgs()
         val repoCommitUrl = args.repoCommitUrl
         val userName = args.userName
         val avatarUrl = args.avatarUrl
 
-        // App bar
-        Picasso.get().load(avatarUrl).transform(CircleTransform())
-            .into(binding.appBarAvatarImageView)
-        binding.appBarTitleTextView.text = "Commits  - ${userName}"
-
         viewModel.repoCommitUrl = repoCommitUrl
         viewModel.userName = userName
 
+        val adapter = RepoCommitAdapter()
+        val recyclerView: RecyclerView = binding.repoCommitRecyclerView
+
         viewModel.getRepoCommit()
 
+        // If HTTP request response success or fail.
         viewModel.getRepoCommitResponse.observe(viewLifecycleOwner, {
             if (it == GetRepoCommitResponse.SUCCESS) {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.SUCCESS")
@@ -62,14 +62,6 @@ class RepoCommitFragment : Fragment() {
                 // This is the transition for the stagger effect.
                 val stagger = Stagger()
                 // RecyclerView
-                val adapter = viewModel.repoCommitResponse?.let { it1 ->
-                    if (it1.size == null) {
-                        RepoCommitAdapter(0)
-                    } else {
-                        RepoCommitAdapter(it1.size)
-                    }
-                }
-                val recyclerView: RecyclerView = binding.repoCommitRecyclerView
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 recyclerView.recycledViewPool.setMaxRecycledViews(0, 0)
                 recyclerView.adapter = adapter
@@ -86,6 +78,43 @@ class RepoCommitFragment : Fragment() {
                 binding.searchUserFailResponseTextView.visibility = View.VISIBLE
             }
         })
+
+        // handle header for different page request.
+        viewModel.headerLink.observe(viewLifecycleOwner, {
+            if (it.contains("next")) {
+                Log.i(TAG, "NEXT: $it")
+                binding.nextPageFloatingActionButton.visibility = View.VISIBLE
+            } else {
+                binding.nextPageFloatingActionButton.visibility = View.INVISIBLE
+            }
+            if (it.contains("prev")) {
+                Log.i(TAG, "PREV: $it")
+                binding.prevPageFloatingActionButton.visibility = View.VISIBLE
+            } else {
+                binding.prevPageFloatingActionButton.visibility = View.INVISIBLE
+            }
+        })
+
+        binding.nextPageFloatingActionButton.setOnClickListener {
+            viewModel.page++
+            adapter!!.submitList(null)
+            binding.repoCommitRecyclerView.visibility = View.INVISIBLE
+            binding.repoCommitProgressBar.visibility = View.VISIBLE
+            viewModel.getNextRepoCommit()
+        }
+
+        binding.prevPageFloatingActionButton.setOnClickListener {
+            viewModel.page--
+            adapter!!.submitList(null)
+            binding.repoCommitRecyclerView.visibility = View.INVISIBLE
+            binding.repoCommitProgressBar.visibility = View.VISIBLE
+            viewModel.getPervRepoCommit()
+        }
+
+        // App bar
+        Picasso.get().load(avatarUrl).transform(CircleTransform())
+            .into(binding.appBarAvatarImageView)
+        binding.appBarTitleTextView.text = "Commits  - ${userName}"
 
     }
 

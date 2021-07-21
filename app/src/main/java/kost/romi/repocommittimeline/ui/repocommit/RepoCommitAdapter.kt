@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,7 @@ import com.google.android.material.card.MaterialCardView
 import kost.romi.repocommittimeline.R
 import kost.romi.repocommittimeline.data.RepoCommitResponse
 
-class RepoCommitAdapter(private val dataSetSize: Int) :
+class RepoCommitAdapter :
     ListAdapter<RepoCommitResponse, RepoCommitAdapter.RepoCommitViewHolder>(RepoCommitDiffCallback) {
 
     private val TAG = "appDebugAdapter"
@@ -33,7 +32,14 @@ class RepoCommitAdapter(private val dataSetSize: Int) :
             itemView.findViewById<ConstraintLayout>(R.id.commit_content_CostraintLayout)
         private val timelineConstraintLayout =
             itemView.findViewById<ConstraintLayout>(R.id.timeline_ConstraintLayout)
+        private val commitMessageTextView =
+            itemView.findViewById<TextView>(R.id.commit_message_TextView)
+        private val commitStatusTextView =
+            itemView.findViewById<TextView>(R.id.commit_status_TextView)
+        private val shaValueTextView =
+            itemView.findViewById<TextView>(R.id.sha_value_TextView)
 
+        // 1st index of RecyclerView will call this method. The others will call the other one.
         fun bind(currentItem: RepoCommitResponse?, position: Int, dataSetSize: Int) {
             timelineLineView1.visibility = View.INVISIBLE
             positionTextView.text = "${position}"
@@ -43,7 +49,23 @@ class RepoCommitAdapter(private val dataSetSize: Int) :
                 timelineLineView2.visibility = View.INVISIBLE
             }
 
+            printInCommitRV(currentItem)
         }
+
+        private fun printInCommitRV(currentItem: RepoCommitResponse?) {
+            commitMessageTextView.text = currentItem?.commit?.message
+
+            if (currentItem?.commit?.author?.name != currentItem?.commit?.committer?.name) {
+                commitStatusTextView.text =
+                    "${currentItem?.commit?.committer?.name} comitted to ${currentItem?.commit?.author?.name}"
+            } else {
+                commitStatusTextView.text =
+                    "${currentItem?.commit?.committer?.name} comitted"
+            }
+
+            shaValueTextView.text = "sha ${currentItem?.sha}"
+        }
+
 
         fun bind(
             previousItem: RepoCommitResponse?,
@@ -75,6 +97,8 @@ class RepoCommitAdapter(private val dataSetSize: Int) :
 //                timelineLineView2.visibility = View.INVISIBLE
                 timelineLineView2.setBackgroundResource(R.drawable.timeline_grey_to_transparent_shape)
             }
+
+            printInCommitRV(currentItem)
         }
 
     }
@@ -89,11 +113,11 @@ class RepoCommitAdapter(private val dataSetSize: Int) :
     }
 
     override fun onBindViewHolder(holder: RepoCommitAdapter.RepoCommitViewHolder, position: Int) {
-        Log.i(TAG, "onBindViewHolder: dataSetSize = ${dataSetSize}")
+        Log.i(TAG, "onBindViewHolder: itemCount: ${itemCount}")
         if (position == 0) {
-            holder.bind(getItem(position), position, dataSetSize)
+            holder.bind(getItem(position), position, itemCount)
         } else {
-            holder.bind(getItem(position - 1), getItem(position), position, dataSetSize)
+            holder.bind(getItem(position - 1), getItem(position), position, itemCount)
         }
     }
 
