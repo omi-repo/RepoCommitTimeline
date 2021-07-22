@@ -33,7 +33,7 @@ class RepoCommitViewModel @Inject constructor(private val gitHubServiceRepositor
     private val _getRepoCommitResponse = MutableLiveData(GetRepoCommitResponse.NONE)
     val getRepoCommitResponse: LiveData<GetRepoCommitResponse> get() = _getRepoCommitResponse
 
-    var repoCommitResponse: List<RepoCommitResponse>? = null
+    var repoCommitResponse = mutableListOf<RepoCommitResponse>()
 
     fun getRepoCommit() {
         var userRepoPath =
@@ -54,7 +54,7 @@ class RepoCommitViewModel @Inject constructor(private val gitHubServiceRepositor
                 }
 
                 _getRepoCommitResponse.postValue(GetRepoCommitResponse.SUCCESS)
-                repoCommitResponse = response.body()
+                response.body()?.let { repoCommitResponse.addAll(it) }
 
                 // handle header for different page request.
                 _headerLink.postValue(response.headers().toMultimap().get("link").toString())
@@ -85,7 +85,7 @@ class RepoCommitViewModel @Inject constructor(private val gitHubServiceRepositor
                 }
 
                 _getRepoCommitResponse.postValue(GetRepoCommitResponse.SUCCESS)
-                repoCommitResponse = response.body()
+                response.body()?.let { repoCommitResponse.addAll(it) }
 
                 _headerLink.postValue(response.headers().toMultimap().get("link").toString())
             } else {
@@ -93,37 +93,6 @@ class RepoCommitViewModel @Inject constructor(private val gitHubServiceRepositor
                 Log.i(TAG, "response.message(): ${response.message()}")
                 _getRepoCommitResponse.postValue(GetRepoCommitResponse.FAIL)
                 page--
-            }
-        }
-    }
-
-    fun getPervRepoCommit() {
-        var userRepoPath =
-            repoCommitUrl.replace("https://api.github.com/", "").replace("{/sha}", "")
-        Log.i(TAG, "getSearchResult: ${userRepoPath}")
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = gitHubServiceRepository.getRepoCommit(
-                token,
-                userAgent,
-                userRepoPath,
-                page
-            )
-            delay(1000)
-            if (response.isSuccessful) {
-                //                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
-                for (map in response.headers().toMultimap()) {
-                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
-                }
-
-                _getRepoCommitResponse.postValue(GetRepoCommitResponse.SUCCESS)
-                repoCommitResponse = response.body()
-
-                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
-            } else {
-                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
-                Log.i(TAG, "response.message(): ${response.message()}")
-                _getRepoCommitResponse.postValue(GetRepoCommitResponse.FAIL)
-                page++
             }
         }
     }

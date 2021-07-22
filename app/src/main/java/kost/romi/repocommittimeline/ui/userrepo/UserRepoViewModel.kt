@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kost.romi.repocommittimeline.BuildConfig
 import kost.romi.repocommittimeline.SearchResponse
 import kost.romi.repocommittimeline.data.GitHubServiceRepository
+import kost.romi.repocommittimeline.data.Items
 import kost.romi.repocommittimeline.data.SearchUserResponse
 import kost.romi.repocommittimeline.data.UserRepoResponse
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +38,8 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
     private val _getUserRepoResponse = MutableLiveData(GetUserRepoResponse.NONE)
     val getUserRepoResponse: LiveData<GetUserRepoResponse> get() = _getUserRepoResponse
 
-    var listUsersResponse: List<UserRepoResponse>? = null
+    //    var listUsersResponse: List<UserRepoResponse>? = null
+    var listUsersResponse = mutableListOf<UserRepoResponse>()
 
     fun getUserRepo() {
         var userRepoPath = userRepoUrl.replace("https://api.github.com/", "")
@@ -59,7 +61,7 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
                 }
 
                 _getUserRepoResponse.postValue(GetUserRepoResponse.SUCCESS)
-                listUsersResponse = response.body()
+                response.body()?.let { listUsersResponse.addAll(it) }
 
                 // handle header for different page request.
                 _headerLink.postValue(response.headers().toMultimap().get("link").toString())
@@ -91,7 +93,7 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
                 }
 
                 _getUserRepoResponse.postValue(GetUserRepoResponse.SUCCESS)
-                listUsersResponse = response.body()
+                response.body()?.let { listUsersResponse.addAll(it) }
 
                 // handle header for different page request.
                 _headerLink.postValue(response.headers().toMultimap().get("link").toString())
@@ -100,39 +102,6 @@ class UserRepoViewModel @Inject constructor(private val gitHubServiceRepository:
                 Log.i(TAG, "response.message(): ${response.message()}")
                 _getUserRepoResponse.postValue(GetUserRepoResponse.FAIL)
                 page--
-            }
-        }
-    }
-
-    fun getPervUserRepo() {
-        var userRepoPath = userRepoUrl.replace("https://api.github.com/", "")
-        Log.i(TAG, "getSearchResult: ${userRepoPath}")
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = gitHubServiceRepository.getUserRepo(
-                token,
-                userAgent,
-                userRepoPath,
-                type,
-                sortBy,
-                page
-            )
-            delay(1000)
-            if (response.isSuccessful) {
-//                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
-                for (map in response.headers().toMultimap()) {
-                    Log.i(TAG, "keys: ${map.key} \t\t values: ${map.value}")
-                }
-
-                _getUserRepoResponse.postValue(GetUserRepoResponse.SUCCESS)
-                listUsersResponse = response.body()
-
-                // handle header for different page request.
-                _headerLink.postValue(response.headers().toMultimap().get("link").toString())
-            } else {
-                Log.i(TAG, "response.headers().toString(): ${response.headers().toString()}")
-                Log.i(TAG, "response.message(): ${response.message()}")
-                _getUserRepoResponse.postValue(GetUserRepoResponse.FAIL)
-                page++
             }
         }
     }

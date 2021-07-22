@@ -55,6 +55,7 @@ class UserRepoFragment : Fragment() {
         return binding.root
     }
 
+    var isLoading = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -67,6 +68,13 @@ class UserRepoFragment : Fragment() {
 
         val adapter = UserRepoRVAdapter()
         val recyclerView: RecyclerView = binding.userRepoRecyclerView
+        // This is the transition for the stagger effect.
+        val stagger = Stagger()
+        // RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+        // Delay the stagger effect until the list is updated.
+        TransitionManager.beginDelayedTransition(recyclerView, stagger)
 
         viewModel.getUserRepo()
 
@@ -76,53 +84,65 @@ class UserRepoFragment : Fragment() {
                 Log.i(TAG, "onViewCreated: it == GetUserRepoResponse.SUCCESS")
                 binding.searchUserProgressBar.visibility = View.INVISIBLE
                 binding.userRepoRecyclerView.visibility = View.VISIBLE
-                // This is the transition for the stagger effect.
-                val stagger = Stagger()
-                // RecyclerView
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                recyclerView.adapter = adapter
-                // Delay the stagger effect until the list is updated.
-                TransitionManager.beginDelayedTransition(recyclerView, stagger)
+
                 adapter.submitList(viewModel.listUsersResponse)
+                adapter.notifyDataSetChanged()
+
+                isLoading = false
+                viewModel.page++
+                binding.bottomUpdateProgressBar.visibility = View.GONE
             }
             if (it == GetUserRepoResponse.FAIL) {
                 Log.i(TAG, "onViewCreated: it == GetUserRepoResponse.FAIL")
                 binding.searchUserProgressBar.visibility = View.INVISIBLE
                 binding.searchUserFailResponseTextView.visibility = View.VISIBLE
+                isLoading = false
+            }
+        })
+
+        // handle listener when recyclerview reach bottom
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Log.i(TAG, "onScrolled: HIT BOTTOM")
+                    Log.i(TAG, "onScrolled: isLoading: $isLoading")
+                    isLoading = true
+                    viewModel.getNextUserRepo()
+                    binding.bottomUpdateProgressBar.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+//                if (!recyclerView.canScrollHorizontally(1)) {
+//                    Log.i(TAG, "onScrolled: HIT BOTTOM")
+//                    Log.i(TAG, "onScrolled: isLoading: $isLoading")
+//                    isLoading = true
+//                }
+//                if (!recyclerView.canScrollHorizontally(-1)) {
+//                    Log.i(TAG, "onScrolled: scrolled up")
+//                    Log.i(TAG, "onScrolled: isLoading: $isLoading")
+//                    isLoading = false
+//                }
             }
         })
 
         // handle header for different page request.
-        viewModel.headerLink.observe(viewLifecycleOwner, {
-            if (it.contains("next")) {
-                Log.i(TAG, "NEXT: $it")
-                binding.nextPageFloatingActionButton.visibility = View.VISIBLE
-            } else {
-                binding.nextPageFloatingActionButton.visibility = View.INVISIBLE
-            }
-            if (it.contains("prev")) {
-                Log.i(TAG, "PREV: $it")
-                binding.prevPageFloatingActionButton.visibility = View.VISIBLE
-            } else {
-                binding.prevPageFloatingActionButton.visibility = View.INVISIBLE
-            }
-        })
-
-        binding.nextPageFloatingActionButton.setOnClickListener {
-            viewModel.page++
-            adapter.submitList(null)
-            binding.userRepoRecyclerView.visibility = View.INVISIBLE
-            binding.searchUserProgressBar.visibility = View.VISIBLE
-            viewModel.getNextUserRepo()
-        }
-
-        binding.prevPageFloatingActionButton.setOnClickListener {
-            viewModel.page--
-            adapter.submitList(null)
-            binding.userRepoRecyclerView.visibility = View.INVISIBLE
-            binding.searchUserProgressBar.visibility = View.VISIBLE
-            viewModel.getPervUserRepo()
-        }
+//        viewModel.headerLink.observe(viewLifecycleOwner, {
+//            if (it.contains("next")) {
+//                Log.i(TAG, "NEXT: $it")
+//                binding.nextPageFloatingActionButton.visibility = View.VISIBLE
+//            } else {
+//                binding.nextPageFloatingActionButton.visibility = View.INVISIBLE
+//            }
+//            if (it.contains("prev")) {
+//                Log.i(TAG, "PREV: $it")
+//                binding.prevPageFloatingActionButton.visibility = View.VISIBLE
+//            } else {
+//                binding.prevPageFloatingActionButton.visibility = View.INVISIBLE
+//            }
+//        })
 
         // App bar
         Picasso.get().load(avatarUrl).transform(CircleTransform())

@@ -36,6 +36,7 @@ class RepoCommitFragment : Fragment() {
         return binding.root
     }
 
+    var isLoading = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,6 +51,14 @@ class RepoCommitFragment : Fragment() {
 
         val adapter = RepoCommitAdapter()
         val recyclerView: RecyclerView = binding.repoCommitRecyclerView
+        // This is the transition for the stagger effect.
+        val stagger = Stagger()
+        // RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.recycledViewPool.setMaxRecycledViews(0, 0)
+        recyclerView.adapter = adapter
+        // Delay the stagger effect until the list is updated.
+        TransitionManager.beginDelayedTransition(recyclerView, stagger)
 
         viewModel.getRepoCommit()
 
@@ -59,57 +68,64 @@ class RepoCommitFragment : Fragment() {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.SUCCESS")
                 binding.repoCommitProgressBar.visibility = View.INVISIBLE
                 binding.repoCommitRecyclerView.visibility = View.VISIBLE
-                // This is the transition for the stagger effect.
-                val stagger = Stagger()
-                // RecyclerView
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                recyclerView.recycledViewPool.setMaxRecycledViews(0, 0)
-                recyclerView.adapter = adapter
-                // Delay the stagger effect until the list is updated.
-                TransitionManager.beginDelayedTransition(recyclerView, stagger)
-                adapter?.submitList(viewModel.repoCommitResponse)
-                recyclerView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
 
-                }
+                adapter?.submitList(viewModel.repoCommitResponse)
+                adapter.notifyDataSetChanged()
+
+                isLoading = false
+                viewModel.page++
+                binding.bottomUpdateProgressBar.visibility = View.GONE
             }
             if (it == GetRepoCommitResponse.FAIL) {
                 Log.i(TAG, "onViewCreated: it == GetRepoCommitResponse.FAIL")
                 binding.repoCommitProgressBar.visibility = View.INVISIBLE
                 binding.searchUserFailResponseTextView.visibility = View.VISIBLE
+                isLoading = false
+            }
+        })
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Log.i(TAG, "onScrolled: HIT BOTTOM")
+                    Log.i(TAG, "onScrolled: isLoading: $isLoading")
+                    isLoading = true
+                    viewModel.getNextRepoCommit()
+                    binding.bottomUpdateProgressBar.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+//                if (!recyclerView.canScrollHorizontally(1)) {
+//                    Log.i(TAG, "onScrolled: HIT BOTTOM")
+//                    Log.i(TAG, "onScrolled: isLoading: $isLoading")
+//                    isLoading = true
+//                }
+//                if (!recyclerView.canScrollHorizontally(-1)) {
+//                    Log.i(TAG, "onScrolled: scrolled up")
+//                    Log.i(TAG, "onScrolled: isLoading: $isLoading")
+//                    isLoading = false
+//                }
             }
         })
 
         // handle header for different page request.
-        viewModel.headerLink.observe(viewLifecycleOwner, {
-            if (it.contains("next")) {
-                Log.i(TAG, "NEXT: $it")
-                binding.nextPageFloatingActionButton.visibility = View.VISIBLE
-            } else {
-                binding.nextPageFloatingActionButton.visibility = View.INVISIBLE
-            }
-            if (it.contains("prev")) {
-                Log.i(TAG, "PREV: $it")
-                binding.prevPageFloatingActionButton.visibility = View.VISIBLE
-            } else {
-                binding.prevPageFloatingActionButton.visibility = View.INVISIBLE
-            }
-        })
-
-        binding.nextPageFloatingActionButton.setOnClickListener {
-            viewModel.page++
-            adapter!!.submitList(null)
-            binding.repoCommitRecyclerView.visibility = View.INVISIBLE
-            binding.repoCommitProgressBar.visibility = View.VISIBLE
-            viewModel.getNextRepoCommit()
-        }
-
-        binding.prevPageFloatingActionButton.setOnClickListener {
-            viewModel.page--
-            adapter!!.submitList(null)
-            binding.repoCommitRecyclerView.visibility = View.INVISIBLE
-            binding.repoCommitProgressBar.visibility = View.VISIBLE
-            viewModel.getPervRepoCommit()
-        }
+//        viewModel.headerLink.observe(viewLifecycleOwner, {
+//            if (it.contains("next")) {
+//                Log.i(TAG, "NEXT: $it")
+//                binding.nextPageFloatingActionButton.visibility = View.VISIBLE
+//            } else {
+//                binding.nextPageFloatingActionButton.visibility = View.INVISIBLE
+//            }
+//            if (it.contains("prev")) {
+//                Log.i(TAG, "PREV: $it")
+//                binding.prevPageFloatingActionButton.visibility = View.VISIBLE
+//            } else {
+//                binding.prevPageFloatingActionButton.visibility = View.INVISIBLE
+//            }
+//        })
 
         // App bar
         Picasso.get().load(avatarUrl).transform(CircleTransform())
