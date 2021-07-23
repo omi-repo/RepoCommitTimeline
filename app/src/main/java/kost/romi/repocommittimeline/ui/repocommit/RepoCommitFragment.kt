@@ -18,7 +18,7 @@ import kost.romi.repocommittimeline.databinding.FragmentRepoCommitBinding
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
 
 /**
- * TODO: finish adding RepoCommitAdapter.
+ * TODO: finish adding RepoCommitAdapter. [CHECK]
  */
 @AndroidEntryPoint
 class RepoCommitFragment : Fragment() {
