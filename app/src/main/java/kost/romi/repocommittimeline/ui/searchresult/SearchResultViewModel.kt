@@ -35,8 +35,13 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
     private var _headerLink = MutableLiveData<String>("")
     val headerLink: LiveData<String> get() = _headerLink
 
+    var coroutineActive =
+        false  // to make sure new coroutine wont start when there is already one starts (no more request)
+
     fun getSearchResult(userName: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            coroutineActive = true
+
             val response = gitHubServiceRepository.searchUser(
                 token,
                 userAgent,

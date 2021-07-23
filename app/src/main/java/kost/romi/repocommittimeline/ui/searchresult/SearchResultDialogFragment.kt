@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -40,7 +39,6 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    var isLoading = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,15 +68,15 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
                 adapter.submitList(viewModel.listUsersResponse)
                 adapter.notifyDataSetChanged()
 
-                isLoading = false
                 viewModel.page++
                 binding.loadMoreFromBottomProgressBar.visibility = View.GONE
+                viewModel.coroutineActive = false
             }
             if (it == SearchResponse.FAIL) {
                 binding.searchUserProgressBar.visibility = View.INVISIBLE
                 Log.i(TAG, "$it == fail")
                 binding.searchUserFailResponseTextView.visibility = View.VISIBLE
-                isLoading = false
+                viewModel.coroutineActive = false
             }
         })
 
@@ -87,11 +85,11 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Log.i(TAG, "onScrolled: HIT BOTTOM")
-                    Log.i(TAG, "onScrolled: isLoading: $isLoading")
-                    isLoading = true
-                    viewModel.getNextSearchResult(userName)
-                    binding.loadMoreFromBottomProgressBar.visibility = View.VISIBLE
+                    if (viewModel.coroutineActive != true) {
+                        Log.i(TAG, "onScrolled: HIT BOTTOM")
+                        viewModel.getNextSearchResult(userName)
+                        binding.loadMoreFromBottomProgressBar.visibility = View.VISIBLE
+                    }
                 }
             }
 
