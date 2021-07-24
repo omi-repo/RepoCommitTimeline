@@ -1,7 +1,8 @@
 # RepoCommitTimeline
-Repo Commit Timeline is an Android app for me to practice using REST API for Github and RecyclerView, by suing Retrofit and MVVM architecture.
+Repo Commit Timeline is an Android app for me to practice using REST API for Github and RecyclerView, by using Retrofit and MVVM architecture.
 
 ## Getting Started
+Read the notes to add your Github Personal Authenticated Token.
 
 ## Images
 |<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080245.png" alt="1" width="200"/>|<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080349.png" alt="1" width="200"/>|<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080416.png" alt="1" width="200"/>|<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080448.png" alt="1" width="200"/>|
