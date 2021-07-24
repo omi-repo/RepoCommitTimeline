@@ -1,10 +1,10 @@
 # RepoCommitTimeline
-Repo Commit Timeline is an Android app for me to practice using REST API for Github, by suing Retrofit and MVVM architecture.
+Repo Commit Timeline is an Android app for me to practice using REST API for Github and RecyclerView, by suing Retrofit and MVVM architecture.
 
 ## Getting Started
 
 ## Images
-|||
+|<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080245.png" alt="1" width="200"/>|<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080349.png" alt="1" width="200"/>|<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080416.png" alt="1" width="200"/>|<img src="https://raw.githubusercontent.com/omi-repo/RepoCommitTimeline/master/images/device-2021-07-24-080448.png" alt="1" width="200"/>|
 
 ## Libraries Used
  - [Navigation component & Safe args](https://developer.android.com/jetpack/androidx/releases/navigation) - Navigation is a framework for navigating between 'destinations' within an Android application that provides a consistent API whether destinations are implemented as Fragments, Activities, or other components. And Safe Args that generates simple object and builder classes for type-safe navigation and access to any associated arguments. Safe Args is strongly recommended for navigating and passing data, because it ensures type-safety.
