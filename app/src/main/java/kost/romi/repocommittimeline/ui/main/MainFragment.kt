@@ -16,9 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 
 /**
- * TODO: use <a href="https://developer.android.com/training/id-auth/authenticate">Authenticate to OAuth2 services</a>, to handle Oauth2. [CHECK]
- * TODO: add search result to DialogFragment.[CHECK]
- * TODO: add as an app widget.
+ *
  * @see <a href="https://developer.android.com/training/id-auth/authenticate">Authenticate to OAuth2 services</a>
  */
 

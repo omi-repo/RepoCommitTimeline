@@ -16,6 +16,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ *
+ */
 @HiltViewModel
 class SearchResultViewModel @Inject constructor(private val gitHubServiceRepository: GitHubServiceRepository) :
     ViewModel() {

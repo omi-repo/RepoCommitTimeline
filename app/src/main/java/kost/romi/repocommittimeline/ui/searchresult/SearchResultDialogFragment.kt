@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,8 +20,7 @@ import kost.romi.repocommittimeline.animation.Stagger
 import kost.romi.repocommittimeline.databinding.FragmentSearchResultDialogBinding
 
 /**
- * TODO: add RecyclerView to success response. [CHECK]
- * TODO: handle on rotation for all fragment.
+ *
  */
 
 @AndroidEntryPoint
