@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RepoCommitTimeline</string>
+    <string name="app_name">Repo Commit Timeline</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cancel">Cancel</string>
     <string name="search_fail_response_text">Sorry. Search User have failed.</string>

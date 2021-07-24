@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
@@ -65,6 +66,29 @@ class MainFragment : Fragment() {
                     )
                 )
             }
+        }
+
+        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (binding.searchEditText.text.isEmpty()) {
+                    Snackbar
+                        .make(
+                            binding.mainContainer,
+                            "Search bar can't be empty",
+                            Snackbar.LENGTH_LONG
+                        )
+                        .setAnchorView(binding.bottomAppBar)
+                        .show()
+                } else {
+                    findNavController().navigate(
+                        MainFragmentDirections.actionMainFragmentToSearchResultDialogFragment(
+                            binding.searchEditText.text.toString()
+                        )
+                    )
+                }
+                true
+            }
+            false
         }
 
         setHasOptionsMenu(true)

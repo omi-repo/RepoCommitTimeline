@@ -16,7 +16,6 @@ Read the notes to add your Github Personal Authenticated Token.
  - [Picasso](https://square.github.io/picasso/) - A powerful image downloading and caching library for Android.
 
 ## Notes
-
 If you want to compile and run this project, don't forget to create a file (called keys.properties) in the root of project containing [Github's API keys](https://github.com/settings/applications/new):
 
     GithubClientId="YOUR_ID"
