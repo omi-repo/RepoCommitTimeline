@@ -11,7 +11,8 @@
             android:layout_height="wrap_content"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:alpha="0" />
         <Constraint
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -37,14 +38,65 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:alpha="100" />
     </ConstraintSet>
     <Transition
         motion:constraintSetStart="@+id/start"
         motion:constraintSetEnd="@+id/end"
         motion:duration="3000"
-        motion:autoTransition="animateToEnd"
-        motion:motionInterpolator="easeInOut">
-        <KeyFrameSet ></KeyFrameSet>
+        motion:autoTransition="animateToEnd">
+        <KeyFrameSet >
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="0"
+                android:scaleX="1.2" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="0"
+                android:scaleY="1.2" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="20"
+                android:scaleX="0.7" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="20"
+                android:scaleY="0.7" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="75"
+                android:scaleX="1.2" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="75"
+                android:scaleY="1.2" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="100"
+                android:scaleX="100" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="100"
+                android:scaleY="100" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="30"
+                android:alpha="1" />
+            <KeyPosition
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="30"
+                motion:keyPositionType="pathRelative"
+                motion:percentX="1.0"
+                motion:percentY="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="80"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imageView3"
+                motion:framePosition="100"
+                android:alpha="0" />
+        </KeyFrameSet>
     </Transition>
 </MotionScene>

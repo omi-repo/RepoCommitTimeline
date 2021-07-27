@@ -16,7 +16,6 @@
         android:layout_height="match_parent"
         android:visibility="visible"
         app:layoutDescription="@xml/fragment_splash_screen_xml_constraintlayout3_scene"
-        app:motionDebug="SHOW_ALL"
         tools:visibility="visible">
 
         <TextView
