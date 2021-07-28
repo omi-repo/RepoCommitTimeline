@@ -9,6 +9,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import kotlin.coroutines.CoroutineContext
 
 interface GitHubService {
 
@@ -48,6 +49,7 @@ interface GitHubService {
     companion object {
         private const val BASE_URL = "https://api.github.com/"
 
+        // TODO: try to add Chucker to read HTTP stream.
         fun create(): GitHubService {
             val logger =
                 HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }

@@ -128,4 +128,11 @@ dependencies {
 
     // Colorful, for theming.
 //    implementation 'com.github.garretyoder:Colorful:2.3.4'
+
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
+    // Chucker simplifies the inspection of HTTP(S) requests/responses fired by your Android App.
+    debugImplementation "com.github.chuckerteam.chucker:library:3.5.1"
+    releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.1"
 }
