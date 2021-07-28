@@ -18,13 +18,13 @@
         app:layoutDescription="@xml/fragment_splash_screen_xml_constraintlayout3_scene"
         tools:visibility="visible">
 
-        <TextView
+        <!--<TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/hello_blank_fragment"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         <ImageView
             android:id="@+id/imageView3"
