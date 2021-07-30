@@ -29,7 +29,7 @@ class MainFragment : Fragment() {
 
     private val TAG = "appDebugFragment"
 
-    private lateinit var binding: FragmentMainBinding
+    private var binding: FragmentMainBinding? = null
     private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,9 +50,9 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,47 +60,47 @@ class MainFragment : Fragment() {
         Log.i(TAG, "override fun onViewCreated(view: View, savedInstanceState: Bundle?)")
 
         //
-        binding.searchEditText.setText(viewModel.userNameEditText.value)
-        binding.searchEditText.doOnTextChanged { text, start, before, count ->
+        binding?.searchEditText?.setText(viewModel.userNameEditText.value)
+        binding?.searchEditText?.doOnTextChanged { text, start, before, count ->
             viewModel.onUserNameChange(text.toString())
         }
 
         // Handle Search Button.
-        binding.searchButton.setOnClickListener {
+        binding?.searchButton?.setOnClickListener {
             hideSoftKeyboard(requireView())
-            if (binding.searchEditText.text.isEmpty()) {
+            if (binding?.searchEditText?.text!!.isEmpty()) {
                 Snackbar
                     .make(
-                        binding.mainContainer,
+                        binding?.mainContainer!!,
                         "Search bar can't be empty",
                         Snackbar.LENGTH_LONG
                     )
-                    .setAnchorView(binding.bottomAppBar)
+                    .setAnchorView(binding?.bottomAppBar)
                     .show()
             } else {
                 findNavController().navigate(
                     MainFragmentDirections.actionMainFragmentToSearchResultDialogFragment(
-                        binding.searchEditText.text.toString()
+                        binding?.searchEditText?.text.toString()
                     )
                 )
             }
         }
 
-        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+        binding?.searchEditText?.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                if (binding.searchEditText.text.isEmpty()) {
+                if (binding?.searchEditText!!.text.isEmpty()) {
                     Snackbar
                         .make(
-                            binding.mainContainer,
+                            binding?.mainContainer!!,
                             "Search bar can't be empty",
                             Snackbar.LENGTH_LONG
                         )
-                        .setAnchorView(binding.bottomAppBar)
+                        .setAnchorView(binding?.bottomAppBar)
                         .show()
                 } else {
                     findNavController().navigate(
                         MainFragmentDirections.actionMainFragmentToSearchResultDialogFragment(
-                            binding.searchEditText.text.toString()
+                            binding?.searchEditText!!.text.toString()
                         )
                     )
                 }
@@ -120,6 +120,12 @@ class MainFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         Log.i(TAG, "onStop()")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i(TAG, "override fun onDestroyView()")
+        binding = null
     }
 
     override fun onDestroy() {

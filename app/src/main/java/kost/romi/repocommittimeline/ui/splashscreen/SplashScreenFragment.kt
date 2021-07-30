@@ -15,7 +15,7 @@ import kost.romi.repocommittimeline.databinding.FragmentSplashScreenBinding
  */
 class SplashScreenFragment : Fragment() {
 
-    private lateinit var binding: FragmentSplashScreenBinding
+    private var binding: FragmentSplashScreenBinding? = null
     private val viewModel: SplashScreenViewModel by viewModels()
 
     override fun onCreateView(
@@ -23,12 +23,12 @@ class SplashScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.constraintLayout3.setTransitionListener(object : MotionLayout.TransitionListener {
+        binding?.constraintLayout3?.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
             }
 
@@ -46,7 +46,12 @@ class SplashScreenFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.constraintLayout3.startLayoutAnimation()
+        binding?.constraintLayout3?.startLayoutAnimation()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
 }
