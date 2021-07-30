@@ -8,6 +8,9 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import dagger.hilt.android.AndroidEntryPoint
 
 
+/**
+ * TODO: use setTheme and recreate in activity to change and update theme.
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
