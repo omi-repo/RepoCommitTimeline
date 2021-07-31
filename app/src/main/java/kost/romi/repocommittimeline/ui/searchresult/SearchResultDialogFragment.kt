@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.SearchResponse
 import kost.romi.repocommittimeline.SearchResultViewModel
 import kost.romi.repocommittimeline.animation.Stagger
+import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 import kost.romi.repocommittimeline.databinding.FragmentSearchResultDialogBinding
 
 /**
@@ -28,14 +29,18 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
 
     private val TAG = "appDebugFragment"
 
-    private lateinit var binding: FragmentSearchResultDialogBinding
+    private var _binding: FragmentSearchResultDialogBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
     private val viewModel: SearchResultViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchResultDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchResultDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -112,6 +117,11 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
 //            dismiss()
             findNavController().navigate(SearchResultDialogFragmentDirections.actionSearchResultDialogFragmentToMainFragment2())
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

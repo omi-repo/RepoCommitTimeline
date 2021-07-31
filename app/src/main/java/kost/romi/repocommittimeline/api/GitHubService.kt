@@ -49,7 +49,7 @@ interface GitHubService {
     companion object {
         private const val BASE_URL = "https://api.github.com/"
 
-        // TODO: try to add Chucker to read HTTP stream.
+        // try to add Chucker to read HTTP stream.
         fun create(): GitHubService {
             val logger =
                 HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }

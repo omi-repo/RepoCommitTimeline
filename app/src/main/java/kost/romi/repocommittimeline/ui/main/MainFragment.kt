@@ -29,7 +29,12 @@ class MainFragment : Fragment() {
 
     private val TAG = "appDebugFragment"
 
-    private var binding: FragmentMainBinding? = null
+    private var _binding: FragmentMainBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
     private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +56,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -125,7 +130,7 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         Log.i(TAG, "override fun onDestroyView()")
-        binding = null
+        _binding = null
     }
 
     override fun onDestroy() {

@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.animation.Stagger
 import kost.romi.repocommittimeline.databinding.FragmentRepoCommitBinding
+import kost.romi.repocommittimeline.databinding.FragmentUserRepoBinding
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
 
 /**
@@ -25,14 +26,19 @@ class RepoCommitFragment : Fragment() {
 
     private val TAG = "appDebugFragment"
 
-    private lateinit var binding: FragmentRepoCommitBinding
+    private var _binding: FragmentRepoCommitBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
     private val viewModel: RepoCommitViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRepoCommitBinding.inflate(inflater, container, false)
+        _binding = FragmentRepoCommitBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -132,6 +138,11 @@ class RepoCommitFragment : Fragment() {
             .into(binding.appBarAvatarImageView)
         binding.appBarTitleTextView.text = "Commits  - ${userName}"
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

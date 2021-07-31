@@ -17,6 +17,7 @@ import androidx.transition.TransitionManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.animation.Stagger
+import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 import kost.romi.repocommittimeline.databinding.FragmentUserRepoBinding
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
 
@@ -30,7 +31,12 @@ class UserRepoFragment : Fragment() {
 
     private val TAG = "appDebugFragment"
 
-    private lateinit var binding: FragmentUserRepoBinding
+    private var _binding: FragmentUserRepoBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
     private val viewModel: UserRepoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +57,7 @@ class UserRepoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserRepoBinding.inflate(inflater, container, false)
+        _binding = FragmentUserRepoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -149,6 +155,11 @@ class UserRepoFragment : Fragment() {
             .into(binding.appBarAvatarImageView)
         binding.appBarTitleTextView.text = "Repo - ${userName}"
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

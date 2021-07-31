@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 import kost.romi.repocommittimeline.databinding.FragmentSplashScreenBinding
 
 /**
@@ -15,14 +16,18 @@ import kost.romi.repocommittimeline.databinding.FragmentSplashScreenBinding
  */
 class SplashScreenFragment : Fragment() {
 
-    private var binding: FragmentSplashScreenBinding? = null
+    private var _binding: FragmentSplashScreenBinding? = null
+
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
     private val viewModel: SplashScreenViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
+        _binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
@@ -51,7 +56,7 @@ class SplashScreenFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 
 }
