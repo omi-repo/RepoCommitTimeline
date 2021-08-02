@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
- * TODO: clean the code.
+ * TODO: add change theme from light to night.
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
