@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.animation.Stagger
 import kost.romi.repocommittimeline.databinding.FragmentRepoCommitBinding
-import kost.romi.repocommittimeline.databinding.FragmentUserRepoBinding
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
 
 /**
@@ -37,7 +36,7 @@ class RepoCommitFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRepoCommitBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,7 +74,7 @@ class RepoCommitFragment : Fragment() {
                 binding.repoCommitProgressBar.visibility = View.INVISIBLE
                 binding.repoCommitRecyclerView.visibility = View.VISIBLE
 
-                adapter?.submitList(viewModel.repoCommitResponse)
+                adapter.submitList(viewModel.repoCommitResponse)
                 adapter.notifyDataSetChanged()
 
                 isLoading = false

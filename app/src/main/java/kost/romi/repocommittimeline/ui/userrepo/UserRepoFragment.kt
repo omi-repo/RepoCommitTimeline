@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +16,6 @@ import androidx.transition.TransitionManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kost.romi.repocommittimeline.animation.Stagger
-import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 import kost.romi.repocommittimeline.databinding.FragmentUserRepoBinding
 import kost.romi.repocommittimeline.ui.searchresult.CircleTransform
 
@@ -56,7 +54,7 @@ class UserRepoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentUserRepoBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -153,7 +151,7 @@ class UserRepoFragment : Fragment() {
         // App bar
         Picasso.get().load(avatarUrl).transform(CircleTransform())
             .into(binding.appBarAvatarImageView)
-        binding.appBarTitleTextView.text = "Repo - ${userName}"
+        binding.appBarTitleTextView.text = "Repo - $userName"
 
     }
 

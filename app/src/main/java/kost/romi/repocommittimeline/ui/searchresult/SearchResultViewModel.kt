@@ -1,8 +1,6 @@
 package kost.romi.repocommittimeline
 
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,8 +33,8 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
     //    var listUsersResponse: MutableList<Items>? = null
     var listUsersResponse = mutableListOf<Items>()
 
-    private var _headerLink = MutableLiveData<String>("")
-    val headerLink: LiveData<String> get() = _headerLink
+    private var _headerLink = MutableLiveData("")
+//    val headerLink: LiveData<String> get() = _headerLink
 
     var coroutineActive =
         false  // to make sure new coroutine wont start when there is already one starts (no more request)
@@ -59,7 +57,7 @@ class SearchResultViewModel @Inject constructor(private val gitHubServiceReposit
                 }
 
                 _searchResponse.postValue(SearchResponse.SUCCESS)
-                response.body()?.items?.let { listUsersResponse?.addAll(it) }
+                response.body()?.items?.let { listUsersResponse.addAll(it) }
 
                 // handle header for different page request.
                 _headerLink.postValue(response.headers().toMultimap().get("link").toString())

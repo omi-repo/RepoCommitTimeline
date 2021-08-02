@@ -6,12 +6,11 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.google.android.material.bottomappbar.BottomAppBar
 import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
- *
+ * TODO: clean the code.
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

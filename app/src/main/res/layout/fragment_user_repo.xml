@@ -16,12 +16,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.userrepo.UserRepoFragment">
 
-        <!--<TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />-->
-
         <ProgressBar
             android:id="@+id/search_user_progressBar"
             style="@style/progress_bar_default"
@@ -55,6 +49,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/next_page_floatingActionButton"
             style="@style/page_selection_FAB"
+            android:contentDescription="@string/go_to_next_page"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/user_repo_RecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +59,7 @@
             android:id="@+id/prev_page_floatingActionButton"
             style="@style/page_selection_FAB"
             android:layout_marginEnd="8dp"
+            android:contentDescription="@string/go_to_previous_page"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/user_repo_RecyclerView"
             app:layout_constraintEnd_toStartOf="@+id/next_page_floatingActionButton"

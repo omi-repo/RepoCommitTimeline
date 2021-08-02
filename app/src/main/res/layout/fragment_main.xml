@@ -22,19 +22,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!--<TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hello_blank_fragment"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />-->
-
             <EditText
                 android:id="@+id/search_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints=""
                 android:backgroundTint="@color/blue_700"
-                android:hint="Search GitHub User"
+                android:hint="@string/search_github_user"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
