@@ -7,7 +7,7 @@
 
         <variable
             name="searchResultViewModel"
-            type="kost.romi.repocommittimeline.SearchResultViewModel" />
+            type="kost.romi.repocommittimeline.ui.searchresult.SearchResultsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

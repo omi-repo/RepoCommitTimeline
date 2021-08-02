@@ -7,10 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kost.romi.repocommittimeline.BuildConfig
-import kost.romi.repocommittimeline.SearchResponse
 import kost.romi.repocommittimeline.data.GitHubServiceRepository
-import kost.romi.repocommittimeline.data.Items
-import kost.romi.repocommittimeline.data.SearchUserResponse
 import kost.romi.repocommittimeline.data.UserRepoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

@@ -1,4 +1,4 @@
-package kost.romi.repocommittimeline
+package kost.romi.repocommittimeline.ui.searchresult
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kost.romi.repocommittimeline.BuildConfig
 import kost.romi.repocommittimeline.data.GitHubServiceRepository
 import kost.romi.repocommittimeline.data.Items
-import kost.romi.repocommittimeline.data.SearchUserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -18,7 +18,7 @@ import javax.inject.Inject
  *
  */
 @HiltViewModel
-class SearchResultViewModel @Inject constructor(private val gitHubServiceRepository: GitHubServiceRepository) :
+class SearchResultsViewModel @Inject constructor(private val gitHubServiceRepository: GitHubServiceRepository) :
     ViewModel() {
 
     private val TAG = "appDebugViewModel"

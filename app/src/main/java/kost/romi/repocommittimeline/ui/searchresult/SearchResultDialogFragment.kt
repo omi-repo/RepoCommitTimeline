@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kost.romi.repocommittimeline.SearchResponse
-import kost.romi.repocommittimeline.SearchResultViewModel
 import kost.romi.repocommittimeline.animation.Stagger
-import kost.romi.repocommittimeline.databinding.FragmentMainBinding
 import kost.romi.repocommittimeline.databinding.FragmentSearchResultDialogBinding
 
 /**
@@ -33,7 +30,7 @@ class SearchResultDialogFragment : BottomSheetDialogFragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private val viewModel: SearchResultViewModel by viewModels()
+    private val viewModel: SearchResultsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
